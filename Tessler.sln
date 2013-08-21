@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessler", "Tessler\Tessler.csproj", "{2DFCD0E0-0E4C-41CC-81CE-1D54C3FA00DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C1D97C39-40DC-40EC-813C-11CC87E8C717}"
+	ProjectSection(SolutionItems) = preProject
+		Local.runsettings = Local.runsettings
+		Tessler.proj = Tessler.proj
+		Tessler.rules.config = Tessler.rules.config
+		Tessler.shfbproj = Tessler.shfbproj
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessler.UnitTest", "Tessler.UnitTest\Tessler.UnitTest.csproj", "{11DD1EB8-15EB-4A31-9DC8-05C105A39617}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.rhea.infosupport.net/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Tessler.UnitTest\\Tessler.UnitTest.csproj
+		SccProjectName1 = Tessler.UnitTest
+		SccLocalPath1 = Tessler.UnitTest
+		SccProjectUniqueName2 = Tessler\\Tessler.csproj
+		SccProjectName2 = Tessler
+		SccLocalPath2 = Tessler
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DFCD0E0-0E4C-41CC-81CE-1D54C3FA00DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFCD0E0-0E4C-41CC-81CE-1D54C3FA00DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFCD0E0-0E4C-41CC-81CE-1D54C3FA00DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFCD0E0-0E4C-41CC-81CE-1D54C3FA00DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11DD1EB8-15EB-4A31-9DC8-05C105A39617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11DD1EB8-15EB-4A31-9DC8-05C105A39617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11DD1EB8-15EB-4A31-9DC8-05C105A39617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11DD1EB8-15EB-4A31-9DC8-05C105A39617}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35
+	EndGlobalSection
+EndGlobal

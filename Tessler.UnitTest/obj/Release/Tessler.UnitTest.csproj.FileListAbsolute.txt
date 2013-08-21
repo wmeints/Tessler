@@ -1,0 +1,7 @@
+S:\Deliverables\Tessler\bin\Resources\phantomjs.exe
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.UnitTest.dll.config
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.UnitTest.dll
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.UnitTest.pdb
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler.UnitTest\obj\Release\Tessler.UnitTest.csprojResolveAssemblyReference.cache
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler.UnitTest\obj\Release\InfoSupport.Tessler.UnitTest.dll
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler.UnitTest\obj\Release\InfoSupport.Tessler.UnitTest.pdb

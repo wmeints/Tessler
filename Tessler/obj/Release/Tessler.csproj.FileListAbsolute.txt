@@ -1,0 +1,10 @@
+S:\Deliverables\Tessler\bin\Resources\phantomjs.exe
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.dll
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.pdb
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.dll.CodeAnalysisLog.xml
+S:\Deliverables\Tessler\bin\InfoSupport.Tessler.dll.lastcodeanalysissucceeded
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler\obj\Release\Tessler.csprojResolveAssemblyReference.cache
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler\obj\Release\InfoSupport.Tessler.Resources.resources
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler\obj\Release\Tessler.csproj.GenerateResource.Cache
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler\obj\Release\InfoSupport.Tessler.dll
+D:\Projects\C2WMO\ZI-C2WMO\Product\90 - Test\Tessler\Tessler\obj\Release\InfoSupport.Tessler.pdb
