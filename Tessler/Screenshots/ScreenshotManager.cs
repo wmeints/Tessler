@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using InfoSupport.Tessler.Configuration;
 using InfoSupport.Tessler.Core;
@@ -23,7 +24,7 @@ namespace InfoSupport.Tessler.Screenshots
 
         public void AddScreenshot(Screenshot screenshot)
         {
-            tasks.Add(Task.Run(() => WriteScreenshot(screenshot, GetScreenshotDirectory(), ++screenshotIndex)));
+            tasks.Add(Task.Factory.StartNew(() => WriteScreenshot(screenshot, GetScreenshotDirectory(), ++screenshotIndex)));
         }
 
         public void Initialize()

@@ -14,18 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessler.UnitTest", "Tessler.UnitTest\Tessler.UnitTest.csproj", "{11DD1EB8-15EB-4A31-9DC8-05C105A39617}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.rhea.infosupport.net/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Tessler.UnitTest\\Tessler.UnitTest.csproj
-		SccProjectName1 = Tessler.UnitTest
-		SccLocalPath1 = Tessler.UnitTest
-		SccProjectUniqueName2 = Tessler\\Tessler.csproj
-		SccProjectName2 = Tessler
-		SccLocalPath2 = Tessler
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -44,6 +32,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

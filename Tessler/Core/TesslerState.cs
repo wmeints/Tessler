@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using InfoSupport.Tessler.Configuration;
@@ -71,7 +72,7 @@ namespace InfoSupport.Tessler.Core
             // Get class type
             testClass = assembly.GetType(context.FullyQualifiedTestClassName);
 
-            var testClassAttribute = testClass.GetCustomAttribute(typeof(TestClassAttribute), false);
+            var testClassAttribute = testClass.GetCustomAttributes(typeof(TestClassAttribute), false).FirstOrDefault();
 
             if (testClassAttribute == null)
             {
@@ -82,7 +83,7 @@ namespace InfoSupport.Tessler.Core
             // Get method info
             testMethod = testClass.GetMethod(context.TestName);
 
-            var testMethodAttribute = testMethod.GetCustomAttribute(typeof(TestMethodAttribute), false);
+            var testMethodAttribute = testMethod.GetCustomAttributes(typeof(TestMethodAttribute), false);
 
             if (testMethodAttribute == null)
             {
@@ -92,11 +93,11 @@ namespace InfoSupport.Tessler.Core
 
             // Clear VerifyFails
             Verify.Fails.Clear();
-
+            
             // Setup webdriver and reset databases
             Task.WaitAll(
-                Task.Run(new Action(() => SetupWebDriver())),
-                Task.Run(new Action(() => ResetDatabases()))
+                Task.Factory.StartNew(new Action(() => SetupWebDriver())),
+                Task.Factory.StartNew(new Action(() => ResetDatabases()))
             );
 
             GetScreenshotManager().Initialize();
@@ -161,7 +162,7 @@ namespace InfoSupport.Tessler.Core
 
         private static void ResetDatabases()
         {
-            var reset = testMethod.GetCustomAttribute(typeof(ResetDatabaseAttribute), true) as ResetDatabaseAttribute;
+            var reset = testMethod.GetCustomAttributes(typeof(ResetDatabaseAttribute), true).FirstOrDefault() as ResetDatabaseAttribute;
 
             if (reset == null || reset.Reset)
             {
