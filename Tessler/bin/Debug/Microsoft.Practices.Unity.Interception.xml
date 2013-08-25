@@ -164,7 +164,7 @@
         </member>
         <member name="M:Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptor.#ctor(Microsoft.Practices.Unity.InterceptionExtension.IInterceptor)">
             <summary>
-            Construt a new <see cref="T:Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptor"/> instance that,
+            Construct a new <see cref="T:Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptor"/> instance that,
             when applied to a container, will register the given
             interceptor as the default one.
             </summary>
@@ -982,7 +982,7 @@
             PostBuildUp method is called when the chain has finished the PreBuildUp
             phase and executes in reverse order from the PreBuildUp calls.
             </summary>
-            <remarks>In this class, PostBuildUp checks to see if the object was proxyable,
+            <remarks>In this class, PostBuildUp checks to see if the object was proxiable,
             and if it was, wires up the handlers.</remarks>
             <param name="context">Context of the build operation.</param>
         </member>
