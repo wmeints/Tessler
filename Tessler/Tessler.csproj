@@ -100,7 +100,7 @@
   <ItemGroup>
     <Compile Include="Adapters\UnitTest\IUnitTestAdapter.cs" />
     <Compile Include="Adapters\UnitTest\VisualStudioUnitTestAdapter.cs" />
-    <Compile Include="Configuration\TesslerSection.cs" />
+    <Compile Include="Configuration\TesslerConfiguration.cs" />
     <Compile Include="Core\Extensions\AssertExtensions.cs" />
     <Compile Include="Core\ChildPageObject.cs" />
     <Compile Include="Core\DatabaseConnection.cs" />
