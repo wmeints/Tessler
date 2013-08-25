@@ -81,17 +81,6 @@ namespace InfoSupport.Tessler.Configuration
         }
 
         /// <summary>
-        /// The default connector to use for database access
-        /// </summary>
-        public ConfigurationState SetDatabaseConnector<TConnector>()
-            where TConnector : IDatabaseAdapter
-        {
-            UnityInstance.Instance.RegisterType<IDatabaseAdapter, TConnector>();
-
-            return this;
-        }
-
-        /// <summary>
         /// Which date format to use
         /// </summary>
         public ConfigurationState SetDateFormat(string format)

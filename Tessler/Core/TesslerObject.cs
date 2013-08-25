@@ -98,5 +98,10 @@ namespace InfoSupport.Tessler.Core
         {
             return Resolve<TPageObject>();
         }
+
+        public static TPageObject Create()
+        {
+            return UnityInstance.Resolve<TPageObject>();
+        }
     }
 }

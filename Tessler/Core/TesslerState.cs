@@ -170,7 +170,7 @@ namespace InfoSupport.Tessler.Core
 
                 var tasks = new List<Task>();
 
-                DatabaseConnection.ResetableConnections.ForEach(db => tasks.Add(Task.Factory.StartNew(db.RestoreFromSnapshot)));
+                DatabaseConnection.ResetableConnections.ForEach(db => tasks.Add(Task.Factory.StartNew(db.ResetDatabase)));
 
                 Task.WaitAll(tasks.ToArray());
 

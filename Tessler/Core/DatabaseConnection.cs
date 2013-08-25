@@ -7,47 +7,34 @@ using InfoSupport.Tessler.Util;
 
 namespace InfoSupport.Tessler.Core
 {
-    public class DatabaseConnection
+    public abstract class DatabaseConnection
     {
         internal static List<DatabaseConnection> ResetableConnections = new List<DatabaseConnection>();
 
-        private ConnectionStringSettings connectionSettings;
-        private string databaseName;
-        private string snapshotName;
+        internal ConnectionStringSettings ConnectionSettings { get; private set; }
 
-        public DatabaseConnection(string connectionStringKey, string databaseName, string snapshotName)
+        public DatabaseConnection(string connectionStringKey, bool resetableConnection)
         {
-            this.connectionSettings = ConfigurationManager.ConnectionStrings[connectionStringKey];
-            this.databaseName = databaseName;
+            this.ConnectionSettings = ConfigurationManager.ConnectionStrings[connectionStringKey];
 
-            this.snapshotName = snapshotName;
-
-            if (this.snapshotName != null)
+            if (resetableConnection)
             {
                 ResetableConnections.Add(this);
             }
 
-            Log.InfoFormat("Added new database connection for database '{0}' {1} snapshot resets", databaseName, ((snapshotName != null) ? "with" : "without"));
-        }
-
-        public DatabaseConnection(string connectionStringKey, string databaseName)
-            : this(connectionStringKey, databaseName, null)
-        {
+            Log.InfoFormat("Added new database connection for ConnectionString '{0}' {1} snapshot resets", connectionStringKey, (resetableConnection ? "with" : "without"));
         }
 
         public DataTable Query(string query)
         {
-            return Adapter.Query(connectionSettings.ConnectionString, query);
+            return Adapter.Query(this, query);
         }
 
-        public void RestoreFromSnapshot()
+        public void ResetDatabase()
         {
-            Adapter.ResetDatabase(connectionSettings.ConnectionString, databaseName, snapshotName);
+            Adapter.ResetDatabase(this);
         }
 
-        private IDatabaseAdapter Adapter
-        {
-            get { return UnityInstance.Resolve<IDatabaseAdapter>(); }
-        }
+        protected abstract IDatabaseAdapter Adapter { get; }
     }
 }

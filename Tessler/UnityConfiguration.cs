@@ -34,12 +34,7 @@ namespace InfoSupport.Tessler
 
             // Screenshot manager
             Container.RegisterType<IScreenshotManager, ScreenshotManager>(new ContainerControlledLifetimeManager());
-
-            if (!Container.IsRegistered<IDatabaseAdapter>())
-            {
-                Container.RegisterType<IDatabaseAdapter, SqlServerDatabaseAdapter>();
-            }
-
+            
             if (!Container.IsRegistered<IJavascriptAdapter>())
             {
                 Container.RegisterType<IJavascriptAdapter, JQueryAjaxStatusAdapter>();

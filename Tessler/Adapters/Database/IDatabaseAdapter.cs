@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using InfoSupport.Tessler.Core;
+using System.Data;
 
 namespace InfoSupport.Tessler.Adapters.Database
 {
@@ -7,8 +8,8 @@ namespace InfoSupport.Tessler.Adapters.Database
     /// </summary>
     public interface IDatabaseAdapter
     {
-        void ResetDatabase(string connectionString, string databaseName, string snapshotName);
+        void ResetDatabase(DatabaseConnection databaseConnection);
 
-        DataTable Query(string connectionString, string query);
+        DataTable Query(DatabaseConnection databaseConnection, string query);
     }
 }
