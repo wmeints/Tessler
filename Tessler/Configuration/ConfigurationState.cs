@@ -14,6 +14,8 @@ namespace InfoSupport.Tessler.Configuration
 
         internal static Browser Browser = TesslerConfiguration.Browser();
 
+        internal static string BrowserProfile = TesslerConfiguration.BrowserProfile();
+
         internal static string DateFormat = TesslerConfiguration.DateFormat();
 
         internal static float FindElementTimeout = TesslerConfiguration.FindElementTimeout();
@@ -26,11 +28,13 @@ namespace InfoSupport.Tessler.Configuration
 
         internal static float NotVisibleWaitTime = TesslerConfiguration.NotVisibleWaitTime();
 
+        internal static bool RecycleBrowser = TesslerConfiguration.RecycleBrowser();
+
+        internal static bool ResetDatabase = TesslerConfiguration.ResetDatabase();
+
         internal static string ScreenshotsPath = TesslerConfiguration.ScreenshotsPath();
 
         internal static string StripNamespace = TesslerConfiguration.StripNamespace();
-
-        internal static bool RecycleBrowser = TesslerConfiguration.RecycleBrowser();
 
         internal static float WaitTime = TesslerConfiguration.PauseWaitTime();
 
@@ -62,6 +66,16 @@ namespace InfoSupport.Tessler.Configuration
         public ConfigurationState SetBrowser(Browser browser)
         {
             Browser = browser;
+
+            return this;
+        }
+
+        /// <summary>
+        /// The browser profile to use
+        /// </summary>
+        public ConfigurationState SetBrowserProfile(string browserProfileName)
+        {
+            BrowserProfile = browserProfileName;
 
             return this;
         }
@@ -155,6 +169,16 @@ namespace InfoSupport.Tessler.Configuration
         public ConfigurationState SetRecycleBrowser(bool recycle)
         {
             RecycleBrowser = recycle;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Whether to reset the database(s) before each test
+        /// </summary>
+        public ConfigurationState SetResetDatabase(bool reset)
+        {
+            RecycleBrowser = reset;
 
             return this;
         }

@@ -27,7 +27,16 @@ namespace InfoSupport.Tessler.Drivers
                     return new ChromeDriver(chromeDriverFolder);
 
                 case Browser.Firefox:
-                    return new FirefoxDriver();
+                    if (!string.IsNullOrEmpty(ConfigurationState.BrowserProfile))
+                    {
+                        FirefoxProfileManager profileManager = new FirefoxProfileManager();
+                        FirefoxProfile profile = profileManager.GetProfile(ConfigurationState.BrowserProfile);
+                        return new FirefoxDriver(profile);
+                    }
+                    else
+                    {
+                        return new FirefoxDriver();
+                    }
 
                 case Browser.InternetExplorer:
                     string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);

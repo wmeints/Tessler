@@ -59,13 +59,13 @@ namespace InfoSupport.Tessler.Core
 
         public static void TestInitialize(TestContext context)
         {
-            testContext = context;
-
             if (context == null)
             {
                 Log.Fatal("ArgumentNullException: 'context'");
                 throw new ArgumentNullException("context");
             }
+
+            testContext = context;
 
             var assembly = Assembly.GetCallingAssembly();
 
@@ -164,7 +164,7 @@ namespace InfoSupport.Tessler.Core
         {
             var reset = testMethod.GetCustomAttributes(typeof(ResetDatabaseAttribute), true).FirstOrDefault() as ResetDatabaseAttribute;
 
-            if (reset == null || reset.Reset)
+            if ((reset == null && ConfigurationState.ResetDatabase) || reset.Reset)
             {
                 Log.InfoFormat("Resetting {0} databases...", DatabaseConnection.ResetableConnections.Count);
 
