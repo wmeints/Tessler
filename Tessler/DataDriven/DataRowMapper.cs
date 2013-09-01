@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InfoSupport.Tessler.DataDriven
+{
+    public static class DataRowMapper
+    {
+        public static TData MapTo<TData>(this DataRow dataRow) where TData : new()
+        {
+            var type = typeof(TData);
+            var instance = new TData();
+
+            foreach (var property in type.GetProperties())
+            {
+                var columnName = property
+                    .GetCustomAttributes(typeof(DataColumnAttribute), false)
+                    .Cast<DataColumnAttribute>()
+                    .Select(d => d.ColumnName).FirstOrDefault();
+
+                // If DataColumnAttribute is not defined, use the property name
+                columnName = columnName ?? property.Name;
+
+                property.SetValue(instance, dataRow[columnName], null);
+            }
+
+            return instance;
+        }
+    }
+}

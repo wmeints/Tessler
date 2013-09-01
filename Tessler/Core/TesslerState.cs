@@ -132,7 +132,7 @@ namespace InfoSupport.Tessler.Core
             }
         }
 
-        public static void AssemblyInitialize(TestContext context)
+        public static void AssemblyInitialize()
         {
             Log.Info("- Configuration -");
             Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
