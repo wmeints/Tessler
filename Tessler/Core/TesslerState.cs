@@ -69,6 +69,9 @@ namespace InfoSupport.Tessler.Core
 
             var assembly = Assembly.GetCallingAssembly();
 
+            // Get class type
+            testClass = assembly.GetType(context.FullyQualifiedTestClassName);
+
             // Clear VerifyFails
             Verify.Fails.Clear();
             
