@@ -3,10 +3,11 @@ using System.Drawing;
 using OpenQA.Selenium;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using InfoSupport.Tessler.Drivers;
+using InfoSupport.Tessler.Util;
 
 namespace InfoSupport.Tessler.Selenium
 {
-    public class SelectElement
+    public class SelectElement : FluentObject
     {
         private ITesslerWebDriver _driver;
 

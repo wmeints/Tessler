@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Remote;
 
 namespace InfoSupport.Tessler.Drivers
 {
@@ -31,16 +32,20 @@ namespace InfoSupport.Tessler.Drivers
                     {
                         FirefoxProfileManager profileManager = new FirefoxProfileManager();
                         FirefoxProfile profile = profileManager.GetProfile(ConfigurationState.BrowserProfile);
+                        profile.AcceptUntrustedCertificates = true;
                         return new FirefoxDriver(profile);
                     }
                     else
                     {
-                        return new FirefoxDriver();
+                        var capabilities = DesiredCapabilities.Firefox();
+                        capabilities.SetCapability(CapabilityType.AcceptSslCertificates, true);
+
+                        return new FirefoxDriver(capabilities);
                     }
 
                 case Browser.InternetExplorer:
                     string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
-
+                    
                     return new InternetExplorerDriver(ieDriverFolder);
 
                 case Browser.PhantomJs:

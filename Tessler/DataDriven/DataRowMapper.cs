@@ -24,7 +24,11 @@ namespace InfoSupport.Tessler.DataDriven
                 // If DataColumnAttribute is not defined, use the property name
                 columnName = columnName ?? property.Name;
 
-                property.SetValue(instance, dataRow[columnName], null);
+                try
+                {
+                    property.SetValue(instance, dataRow[columnName], null);
+                }
+                catch {} // Possible ArgumentNullException
             }
 
             return instance;

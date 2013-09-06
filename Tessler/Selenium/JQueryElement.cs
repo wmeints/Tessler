@@ -2,11 +2,12 @@
 using System.Drawing;
 using System.Text;
 using InfoSupport.Tessler.Drivers;
+using InfoSupport.Tessler.Util;
 using OpenQA.Selenium;
 
 namespace InfoSupport.Tessler.Selenium
 {
-    public class JQueryElement
+    public class JQueryElement : FluentObject
     {
         private ITesslerWebDriver _driver;
         private IWebElement _element;

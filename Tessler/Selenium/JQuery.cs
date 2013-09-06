@@ -5,10 +5,11 @@ using InfoSupport.Tessler.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using InfoSupport.Tessler.Core;
+using InfoSupport.Tessler.Util;
 
 namespace InfoSupport.Tessler.Selenium
 {
-    public class JQuery
+    public class JQuery : FluentObject
     {
         public static JQuery By(string selector, params string[] parameters)
         {
@@ -29,6 +30,11 @@ namespace InfoSupport.Tessler.Selenium
         public JQuery Children(string selector = "")
         {
             return Function("children", selector);
+        }
+
+        public JQuery Children(int index)
+        {
+            return Function("children", string.Format(":nth-child({0})", index));
         }
 
         public JQuery Closest(string selector = "")
@@ -123,7 +129,7 @@ namespace InfoSupport.Tessler.Selenium
 
         public JQuery Sibling(int index)
         {
-            return this.Parent().Children(string.Format(":nth-child({0})", index));
+            return this.Parent().Children(index);
         }
 
         public JQuery ExactText(string text)

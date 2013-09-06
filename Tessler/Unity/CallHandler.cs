@@ -60,7 +60,7 @@ namespace InfoSupport.Tessler.Unity
                     testResult = TestResult.VerifyFailed;
                 }
 
-                TakeScreenshot(input, new StackTrace(), testResult);
+                TakeScreenshot(input, testResult);
 
                 Verify.Failed = false;
             }
@@ -74,7 +74,7 @@ namespace InfoSupport.Tessler.Unity
             set;
         }
 
-        public void TakeScreenshot(IMethodInvocation input, StackTrace stackTrace, TestResult testResult)
+        public void TakeScreenshot(IMethodInvocation input, TestResult testResult)
         {
             // First check the method
             var screenshotAttribute = input.MethodBase.GetCustomAttributes(typeof(TakeScreenshotAttribute), true).FirstOrDefault() as TakeScreenshotAttribute;

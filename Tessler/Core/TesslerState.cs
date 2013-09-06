@@ -69,28 +69,6 @@ namespace InfoSupport.Tessler.Core
 
             var assembly = Assembly.GetCallingAssembly();
 
-            // Get class type
-            testClass = assembly.GetType(context.FullyQualifiedTestClassName);
-
-            var testClassAttribute = testClass.GetCustomAttributes(typeof(TestClassAttribute), false).FirstOrDefault();
-
-            if (testClassAttribute == null)
-            {
-                Log.Fatal("Calling class has no [TestClass] attribute");
-                throw new InvalidOperationException("Calling class has no [TestClass] attribute");
-            }
-
-            // Get method info
-            testMethod = testClass.GetMethod(context.TestName);
-
-            var testMethodAttribute = testMethod.GetCustomAttributes(typeof(TestMethodAttribute), false);
-
-            if (testMethodAttribute == null)
-            {
-                Log.Fatal("Test method has no [TestMethod] attribute");
-                throw new InvalidOperationException("Test method has no [TestMethod] attribute");
-            }
-
             // Clear VerifyFails
             Verify.Fails.Clear();
             
