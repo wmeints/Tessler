@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Remote;
+using InfoSupport.Tessler.Core;
 
 namespace InfoSupport.Tessler.Drivers
 {
@@ -28,10 +29,10 @@ namespace InfoSupport.Tessler.Drivers
                     return new ChromeDriver(chromeDriverFolder);
 
                 case Browser.Firefox:
-                    if (!string.IsNullOrEmpty(ConfigurationState.BrowserProfile))
+                    if (!string.IsNullOrEmpty(TesslerState.CurrentBrowserProfile))
                     {
                         FirefoxProfileManager profileManager = new FirefoxProfileManager();
-                        FirefoxProfile profile = profileManager.GetProfile(ConfigurationState.BrowserProfile);
+                        FirefoxProfile profile = profileManager.GetProfile(TesslerState.CurrentBrowserProfile);
                         profile.AcceptUntrustedCertificates = true;
                         return new FirefoxDriver(profile);
                     }

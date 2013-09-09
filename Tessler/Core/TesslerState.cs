@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using InfoSupport.Tessler.Configuration;
 using InfoSupport.Tessler.Drivers;
@@ -18,12 +19,15 @@ namespace InfoSupport.Tessler.Core
         private static TestContext testContext;
         private static Type testClass;
         private static MethodInfo testMethod;
+        private static string currentBrowserProfile;
 
         private static ITesslerWebDriver driverInstance;
 
         internal static Type TestClass { get { return testClass; } }
 
         internal static MethodInfo TestMethod { get { return testMethod; } }
+
+        internal static string CurrentBrowserProfile { get { return currentBrowserProfile; } }
 
         public static ConfigurationState Configure()
         {
@@ -71,6 +75,9 @@ namespace InfoSupport.Tessler.Core
 
             // Get class type
             testClass = assembly.GetType(context.FullyQualifiedTestClassName);
+
+            // Get method info
+            testMethod = testClass.GetMethod(context.TestName);
 
             // Clear VerifyFails
             Verify.Fails.Clear();
@@ -145,7 +152,7 @@ namespace InfoSupport.Tessler.Core
         {
             var reset = testMethod.GetCustomAttributes(typeof(ResetDatabaseAttribute), true).FirstOrDefault() as ResetDatabaseAttribute;
 
-            if ((reset == null && ConfigurationState.ResetDatabase) || reset.Reset)
+            if ((reset == null && ConfigurationState.ResetDatabase) || (reset != null && reset.Reset))
             {
                 Log.InfoFormat("Resetting {0} databases...", DatabaseConnection.ResetableConnections.Count);
 
@@ -161,12 +168,34 @@ namespace InfoSupport.Tessler.Core
 
         private static void SetupWebDriver()
         {
+            SwitchBrowserProfile();
+
             var driver = GetWebDriver();
 
             driver.Navigate().GoToUrl(ConfigurationState.WebsiteUrl);
 
             if (ConfigurationState.MaximizeBrowser)
                 driver.Manage().Window.Maximize();
+        }
+
+        private static void SwitchBrowserProfile()
+        {
+            var profile = testMethod.GetCustomAttributes(typeof(BrowserProfileAttribute), true).FirstOrDefault() as BrowserProfileAttribute;
+
+            string browserProfile = ConfigurationState.BrowserProfile;
+            if (profile != null)
+            {
+                browserProfile = profile.Profile;
+            }
+
+            if (currentBrowserProfile != browserProfile)
+            {
+                if (driverInstance != null && !driverInstance.IsActive) // Avoid creating WebDriver
+                {
+                    GetWebDriver().Close();
+                }
+                currentBrowserProfile = browserProfile;
+            }
         }
     }
 }

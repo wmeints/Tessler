@@ -2,6 +2,7 @@
 
 namespace InfoSupport.Tessler.Core
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class TakeScreenshotAttribute : Attribute
     {
         public TakeScreenshotAttribute(bool enabled = true, string text = "")
