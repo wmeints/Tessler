@@ -397,35 +397,66 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
         }
 
         [TestMethod]
-        public void SetDialogAlertTest()
+        public void SetDialogAlertExpectedTest()
         {
-            driver.SetDialogAlert();
+            driver.SetDialogAlert(true);
 
-            webDriverMock.Verify(m => m.ExecuteScript("alert = function (text) { return true; }"), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("alert") && !s.Contains("throw Error"))), Times.Once());
+        }
+
+        [TestMethod]
+        public void SetDialogAlertUnexpectedTest()
+        {
+            driver.SetDialogAlert(false);
+
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("alert") && s.Contains("throw Error"))), Times.Once());
         }
 
         [TestMethod]
         public void SetDialogConfirmResultTrueTest()
         {
-            driver.SetDialogConfirmResult(true);
+            driver.SetDialogConfirm(true);
 
-            webDriverMock.Verify(m => m.ExecuteScript("confirm = function (text) { return true; }"), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("confirm") && s.Contains("return true"))), Times.Once());
         }
 
         [TestMethod]
         public void SetDialogConfirmResultFalseTest()
         {
-            driver.SetDialogConfirmResult(false);
+            driver.SetDialogConfirm(false);
 
-            webDriverMock.Verify(m => m.ExecuteScript("confirm = function (text) { return false; }"), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("confirm") && s.Contains("return false"))), Times.Once());
         }
 
         [TestMethod]
-        public void SetLeavePageAlert()
+        public void SetDialogConfirmResultUnexpectedTest()
         {
-            driver.SetLeavePageAlert();
+            driver.SetDialogConfirm(null);
 
-            webDriverMock.Verify(m => m.ExecuteScript("window.onbeforeunload = function () {}"), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("confirm") && s.Contains("throw Error"))), Times.Once());
+        }
+
+        [TestMethod]
+        public void SetDialogLeavePageExpectedTest()
+        {
+            driver.SetDialogLeavePage(true);
+
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.onbeforeunload") && !s.Contains("throw Error"))), Times.Once());
+        }
+
+        [TestMethod]
+        public void SetDialogLeavePageUnexpectedTest()
+        {
+            driver.SetDialogLeavePage(false);
+
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.setTesslerData = "))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(s => s.Contains("window.onbeforeunload") && s.Contains("throw Error"))), Times.Once());
         }
     }
 }

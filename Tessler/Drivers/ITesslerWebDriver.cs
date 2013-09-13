@@ -118,18 +118,24 @@ namespace InfoSupport.Tessler.Drivers
         /// <summary>
         /// Mocks javascript alert
         /// </summary>
-        void SetDialogAlert();
+        void SetDialogAlert(bool expected = false);
 
         /// <summary>
         /// Sets the return value for javascript confirm dialogs
         /// </summary>
         /// <param name="result">What the result of a confirm() call should be</param>
-        void SetDialogConfirmResult(bool result);
+        void SetDialogConfirm(bool? result = null);
 
         /// <summary>
         /// Mocks the javascript leave this page dialog
         /// </summary>
-        void SetLeavePageAlert();
+        void SetDialogLeavePage(bool expected = false);
+
+        string GetDialogAlertMessage();
+
+        string GetDialogConfirmMessage();
+
+        void ClearDialogMessages();
 
         #endregion
     }

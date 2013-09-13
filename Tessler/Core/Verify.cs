@@ -44,7 +44,7 @@ namespace InfoSupport.Tessler.Core
 
             if (expected != actual)
             {
-                Fail(actual, expected);
+                Fail("Actual <{0}> does not equal expected <{1}>", actual, expected);
             }
         }
 
@@ -54,7 +54,7 @@ namespace InfoSupport.Tessler.Core
 
             if (expected.ToDateString() != actual)
             {
-                Fail(actual, expected.ToDateString());
+                Fail("Actual <{0}> does not equal expected <{1}>", actual, expected.ToDateString());
             }
         }
 
@@ -64,7 +64,7 @@ namespace InfoSupport.Tessler.Core
 
             if (expected == actual)
             {
-                Fail(actual, expected, "Actual <{0}> does contain unexpected <{1}>");
+                Fail("Actual <{0}> does contain unexpected <{1}>", actual, expected);
             }
         }
 
@@ -74,7 +74,7 @@ namespace InfoSupport.Tessler.Core
 
             if (expected.ToDateString() == actual)
             {
-                Fail(actual, expected.ToDateString(), "Actual <{0}> does contain unexpected <{1}>");
+                Fail("Actual <{0}> does contain unexpected <{1}>", actual, expected.ToDateString());
             }
         }
 
@@ -84,7 +84,7 @@ namespace InfoSupport.Tessler.Core
 
             if (string.Empty != actual)
             {
-                Fail(actual, null, "Actual <{0}> is not empty");
+                Fail("Actual <{0}> is not empty", actual);
             }
         }
 
@@ -94,27 +94,27 @@ namespace InfoSupport.Tessler.Core
 
             if (string.Empty == actual)
             {
-                Fail(actual, null, "Actual <{0}> is empty");
+                Fail("Actual <{0}> is empty", actual);
             }
         }
 
         public static void IsTrue(bool actual)
         {
             if (actual != true)
-                Fail(actual, true);
+                Fail("Actual <{0}> does not equal expected <{1}>", actual, true);
         }
 
         public static void IsFalse(bool actual)
         {
             if (actual != false)
-                Fail(actual, false);
+                Fail("Actual <{0}> does not equal expected <{1}>", actual, false);
         }
 
         public static void Contains(string actual, string text)
         {
             if (!actual.Contains(text))
             {
-                Fail(actual, text, "Actual <{0}> does not contain expected <{1}>");
+                Fail("Actual <{0}> does not contain expected <{1}>", actual, text);
             }
         }
 
@@ -128,14 +128,14 @@ namespace InfoSupport.Tessler.Core
                 }
             }
 
-            Fail(actual.Concat(), item, "Actual <{0}> did not contain expected <{1}>");
+            Fail("Actual <{0}> did not contain expected <{1}>", actual.Concat(), item);
         }
 
         public static void NotContains(string actual, string text)
         {
             if (actual.Contains(text))
             {
-                Fail(actual, text, "Actual <{0}> does contain unexpected <{1}>");
+                Fail("Actual <{0}> does contain unexpected <{1}>", actual, text);
             }
         }
 
@@ -145,14 +145,14 @@ namespace InfoSupport.Tessler.Core
             {
                 if (i.Contains(item))
                 {
-                    Fail(actual.Concat(), item, "Actual <{0}> did contain unexpected <{1}>");
+                    Fail("Actual <{0}> did contain unexpected <{1}>", actual.Concat(), item);
                 }
             }
         }
 
-        internal static void Fail(object actual, object expected, string message = "Actual <{0}> does not equal expected <{1}>")
+        internal static void Fail(string message, params object[] parameters)
         {
-            Fails.Add(string.Format(message, actual, expected));
+            Fails.Add(string.Format(message, parameters));
 
             Failed = true;
         }

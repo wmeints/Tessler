@@ -265,19 +265,125 @@ namespace InfoSupport.Tessler.Drivers
             }
         }
 
-        public void SetDialogAlert()
+        public void SetDialogLeavePage(bool expected = false)
         {
-            Js("alert = function (text) { return true; }");
+            InitializeSetTesslerData();
+
+            var sb = new StringBuilder();
+            sb.Append("window.onbeforeunload = function () {");
+            //sb.Append("window.setTesslerData('leavepage-message', window.onbeforeunload());");
+
+            // Throw error if not expected
+            if (!expected)
+            {
+                sb.Append("throw Error('An unexpected Leave Page Dialog openend.');");
+            }
+
+            sb.Append("}");
+
+            Js(sb.ToString());
         }
 
-        public void SetDialogConfirmResult(bool result)
+        public void SetDialogAlert(bool expected = false)
         {
-            Js("confirm = function (text) { return " + (result ? "true" : "false") + "; }");
+            InitializeSetTesslerData();
+
+            var sb = new StringBuilder();
+            sb.Append("alert = function (text) { window.setTesslerData('alert-message', text);");
+
+            // Throw error if not expected
+            if (!expected)
+            {
+                sb.Append("throw Error('An unexpected Alert Dialog openend.');");
+            }
+        
+            sb.Append("}");
+
+            Js(sb.ToString());
         }
 
-        public void SetLeavePageAlert()
+        public string GetDialogAlertMessage()
         {
-            Js("window.onbeforeunload = function () {}");
+            InitializeGetTesslerData();
+            
+            var message = Js("window.getTesslerState('alert-message')");
+            return message != null ? message.ToString() : null;
+        }
+
+        public void SetDialogConfirm(bool? result = null)
+        {
+            InitializeSetTesslerData();
+
+            var sb = new StringBuilder();
+            sb.Append("confirm = function (text) { window.setTesslerData('confirm-message', text);");
+            
+
+            // Either return the given result value or throw error if not expected
+            if(result.HasValue)
+            {
+                sb.Append("return " + (result.Value ? "true" : "false") + "; }");
+            }
+            else
+            {
+                sb.Append("throw Error('An unexpected Confirm Dialog openend.');");
+            }
+
+            sb.Append("}");
+
+            Js(sb.ToString());
+        }
+
+        public string GetDialogConfirmMessage()
+        {
+            InitializeGetTesslerData();
+
+            var message = Js("window.getTesslerState('confirm-message')");
+            return message != null ? message.ToString() : null;
+        }
+
+        public void ClearDialogMessages()
+        {
+            var sb = new StringBuilder();
+
+            sb.Append("if(window.sessionStorage) {");
+            sb.Append("window.sessionStorage.removeItem('tessler-alert-message');");
+            sb.Append("window.sessionStorage.removeItem('tessler-confirm-message');");
+            sb.Append("} else if(window.tessler) {");
+            sb.Append("window.tessler['alert-message'] = null;");
+            sb.Append("window.tessler['confirm-message'] = null;");
+            sb.Append("}");
+
+            Js(sb.ToString());
+        }
+        
+        private void InitializeSetTesslerData()
+        {
+            var sb = new StringBuilder();
+            sb.Append("window.setTesslerData = window.setTesslerData || function(key, data) {");
+            sb.Append("if(window.sessionStorage) {");
+            sb.Append("window.sessionStorage.setItem('tessler-' + key, data);");
+            sb.Append("} else {");
+            sb.Append("window.tessler = window.tessler || new Array();");
+            sb.Append("window.tessler[key] = data;");
+            sb.Append("}");
+            sb.Append("};");
+
+            Js(sb.ToString());
+        }
+
+        private void InitializeGetTesslerData()
+        {
+            var sb = new StringBuilder();
+            sb.Append("window.getTesslerData = window.getTesslerData || function(key) {");
+            sb.Append("if(window.sessionStorage) {");
+            sb.Append("return window.sessionStorage.getItem('tessler-' + key);");
+            sb.Append("} else {");
+            sb.Append("window.tessler = window.tessler || new Array();");
+            sb.Append("return window.tessler[key];");
+            sb.Append("}");
+            sb.Append("};");
+
+            Js(sb.ToString());
         }
     }
 }
