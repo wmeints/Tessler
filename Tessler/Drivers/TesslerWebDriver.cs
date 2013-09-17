@@ -299,14 +299,14 @@ namespace InfoSupport.Tessler.Drivers
         
             sb.Append("}");
 
-            Js(sb.ToString());
+            InsertInScriptTag(sb.ToString(), "tessler-alert-message");
         }
 
         public string GetDialogAlertMessage()
         {
             InitializeGetTesslerData();
             
-            var message = Js("window.getTesslerState('alert-message')");
+            var message = Js("window.getTesslerData('alert-message')");
             return message != null ? message.ToString() : null;
         }
 
@@ -316,7 +316,6 @@ namespace InfoSupport.Tessler.Drivers
 
             var sb = new StringBuilder();
             sb.Append("confirm = function (text) { window.setTesslerData('confirm-message', text);");
-            
 
             // Either return the given result value or throw error if not expected
             if(result.HasValue)
@@ -330,14 +329,14 @@ namespace InfoSupport.Tessler.Drivers
 
             sb.Append("}");
 
-            Js(sb.ToString());
+            InsertInScriptTag(sb.ToString(), "tessler-confirm-message");
         }
 
         public string GetDialogConfirmMessage()
         {
             InitializeGetTesslerData();
 
-            var message = Js("window.getTesslerState('confirm-message')");
+            var message = Js("window.getTesslerData('confirm-message')");
             return message != null ? message.ToString() : null;
         }
 
@@ -368,7 +367,7 @@ namespace InfoSupport.Tessler.Drivers
             sb.Append("}");
             sb.Append("};");
 
-            Js(sb.ToString());
+            InsertInScriptTag(sb.ToString(), "set-tessler-data");
         }
 
         private void InitializeGetTesslerData()
@@ -383,7 +382,22 @@ namespace InfoSupport.Tessler.Drivers
             sb.Append("}");
             sb.Append("};");
 
-            Js(sb.ToString());
+            InsertInScriptTag(sb.ToString(), "get-tessler-data");
+        }
+
+        private void InsertInScriptTag(string javascript, string id)
+        {
+            StringBuilder js = new StringBuilder();
+
+            js.AppendFormat("if(document.getElementById('{0}') == null) {{", id);
+            js.Append("var script = document.createElement('script');");
+            js.AppendFormat("script.innerHTML = \"{0}\";", javascript);
+            js.AppendFormat("script.id = '{0}';", id);
+            js.Append("script.type = 'text/javascript';");
+            js.Append("document.getElementsByTagName('head')[0].appendChild(script);");
+            js.Append("}");
+
+            Js(js.ToString());
         }
     }
 }
