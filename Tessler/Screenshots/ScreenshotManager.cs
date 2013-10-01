@@ -98,7 +98,13 @@ namespace InfoSupport.Tessler.Screenshots
 
             var directory = ConfigurationState.ScreenshotsPath;
 
-            string[] subDirectory = (testClass + "." + testMethod).Split(new char[] { '.' });
+            var subDirPath = (testClass + "." + testMethod);
+            if(TesslerState.TestIterationIndex.HasValue)
+            {
+                subDirPath += "." + TesslerState.TestIterationIndex;
+            }
+
+            string[] subDirectory = subDirPath.Split(new char[] { '.' });
 
             directory = Path.Combine(directory, Path.Combine(subDirectory));
 

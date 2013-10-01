@@ -27,6 +27,19 @@ namespace InfoSupport.Tessler.Core
 
         internal static MethodInfo TestMethod { get { return testMethod; } }
 
+        internal static int? TestIterationIndex 
+        { 
+            get 
+            {
+                var datasource = testMethod.GetCustomAttributes(typeof(DataSourceAttribute), true).FirstOrDefault() as DataSourceAttribute;
+                if (datasource == null)
+                {
+                    return null;
+                }
+                return testContext.DataRow.Table.Rows.IndexOf(testContext.DataRow);
+            } 
+        }
+
         internal static string CurrentBrowserProfile { get { return currentBrowserProfile; } }
 
         public static ConfigurationState Configure()
