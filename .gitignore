@@ -1,9 +1,6 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-*.suo
+Debug
+Release
 bin
 obj
-TestResults
-/Tessler/Drivers/BaseTesslerWebDriver.cs
+*.user
+*.suo
