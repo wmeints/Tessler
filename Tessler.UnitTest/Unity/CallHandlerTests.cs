@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InfoSupport.Tessler.Core;
+﻿using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.UnitTest.Mock;
 using InfoSupport.Tessler.Unity;
+using log4net;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using OpenQA.Selenium;
-using Microsoft.Practices.Unity;
-using log4net;
-using Microsoft.Practices.Unity.InterceptionExtension;
-using InfoSupport.Tessler.Drivers;
 
 namespace InfoSupport.Tessler.UnitTest.Unity
 {

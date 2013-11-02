@@ -1,14 +1,13 @@
-﻿using InfoSupport.Tessler.Drivers;
-using InfoSupport.Tessler.Selenium;
-using InfoSupport.Tessler.Unity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Microsoft.Practices.Unity;
-using OpenQA.Selenium;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using InfoSupport.Tessler.Drivers;
+using InfoSupport.Tessler.Selenium;
 using InfoSupport.Tessler.UnitTest.Mock;
-using System;
+using InfoSupport.Tessler.Unity;
+using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Tessler.UnitTest.Selenium
 {

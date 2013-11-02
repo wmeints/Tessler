@@ -1,13 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using InfoSupport.Tessler.Drivers;
-using InfoSupport.Tessler.Selenium;
-using InfoSupport.Tessler.Unity;
-using InfoSupport.Tessler.Util;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
-
+﻿
 namespace InfoSupport.Tessler.Core
 {
     [TakeScreenshot]

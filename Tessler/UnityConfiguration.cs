@@ -1,21 +1,12 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using InfoSupport.Tessler.Adapters.Ajax;
-using InfoSupport.Tessler.Adapters.Database;
-using InfoSupport.Tessler.Configuration;
+﻿using InfoSupport.Tessler.Adapters.Ajax;
+using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Screenshots;
 using InfoSupport.Tessler.Selenium;
 using InfoSupport.Tessler.Unity;
-using InfoSupport.Tessler.Util;
+using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.PhantomJS;
 
 namespace InfoSupport.Tessler
 {
@@ -23,6 +14,11 @@ namespace InfoSupport.Tessler
     {
         protected override void Initialize()
         {
+            // Logging
+            Container.RegisterInstance<ILog>(LogManager.GetLogger(typeof(TesslerState)));
+
+            // Interception
+            Container.AddNewExtension<Interception>();
             Container.Configure<Interception>()
                 .AddPolicy("InterceptionPolicy")
                 .AddMatchingRule<AnyMatchingRule>()
@@ -41,6 +37,18 @@ namespace InfoSupport.Tessler
             }
 
             JQueryScriptExtensions.Add("jQuery.expr[':'].equals = function(a, i, m) { var $a = $(a); return ($a.text() == m[3]); }");
+        }
+
+        private static bool isInitialized;
+
+        internal static void InitializeStandAlone()
+        {
+            if (!isInitialized)
+            {
+                var container = UnityInstance.Instance;
+
+                container.AddNewExtension<UnityConfiguration>();
+            }
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
@@ -62,32 +58,6 @@ namespace InfoSupport.Tessler.Core
     public class TesslerObject<TPageObject> : TesslerObject
         where TPageObject : TesslerObject<TPageObject>
     {
-        //protected T Resolve<T>() where T : PageObject
-        //{
-        //    Driver.LoadJQuery();
-
-        //    Driver.WaitForAjax();
-
-        //    var result = UnityInstance.Resolve<T>();
-
-        //    var fromType = GetType();
-        //    var toType = typeof(T);
-
-        //    if (fromType != toType && !TypeUtil.IsDeclaredIn(toType, fromType) && !TesslerWebDriver.InhibitExecution)
-        //    {
-        //        OnLeave();
-        //        result.OnEnter();
-        //    }
-
-        //    return result;
-        //}
-
-        //internal TTargetObject DoResolve<TTargetObject>()
-        //    where TTargetObject : PageObject<TTargetObject>
-        //{
-        //    return Resolve<TTargetObject>();
-        //}
-
         protected TTargetPageObject Resolve<TTargetPageObject>()
             where TTargetPageObject : TesslerObject
         {

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InfoSupport.Tessler.Core;
-using InfoSupport.Tessler.Drivers;
-using InfoSupport.Tessler.Unity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Practices.Unity;
-using Moq;
+﻿using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.UnitTest.Mock;
+using InfoSupport.Tessler.Unity;
+using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace InfoSupport.Tessler.UnitTest.Core
 {

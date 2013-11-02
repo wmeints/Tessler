@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Data;
 using InfoSupport.Tessler.Adapters.Database;
-using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
 
 namespace InfoSupport.Tessler.Core

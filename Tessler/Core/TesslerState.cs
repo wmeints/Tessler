@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using InfoSupport.Tessler.Configuration;
 using InfoSupport.Tessler.Drivers;
@@ -10,7 +9,6 @@ using InfoSupport.Tessler.Screenshots;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
 
 namespace InfoSupport.Tessler.Core
 {
@@ -135,6 +133,8 @@ namespace InfoSupport.Tessler.Core
 
         public static void AssemblyInitialize()
         {
+            UnityConfiguration.InitializeStandAlone();
+
             Log.Info("- Configuration -");
             Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
             Log.InfoFormat("Find element timeout: '{0}'", ConfigurationState.FindElementTimeout);

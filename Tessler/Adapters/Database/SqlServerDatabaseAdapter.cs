@@ -2,9 +2,8 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
-using InfoSupport.Tessler.Util;
 using InfoSupport.Tessler.Core;
-using InfoSupport.Tessler.Unity;
+using InfoSupport.Tessler.Util;
 
 namespace InfoSupport.Tessler.Adapters.Database
 {

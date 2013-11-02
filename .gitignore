@@ -1,6 +1,8 @@
+packages
 Debug
 Release
 bin
 obj
+TestResults
 *.user
 *.suo

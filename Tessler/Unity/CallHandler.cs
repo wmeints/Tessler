@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,8 +8,6 @@ using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Screenshots;
 using InfoSupport.Tessler.Selenium;
 using Microsoft.Practices.Unity.InterceptionExtension;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
 
 namespace InfoSupport.Tessler.Unity
 {
@@ -41,16 +38,12 @@ namespace InfoSupport.Tessler.Unity
                 po.FireOnCalling();
             }
 
-            PrepareDialogs(input);
-
             var result = getNext()(input, getNext);
 
             if (!TesslerWebDriver.InhibitExecution)
             {
                 po.FireOnCalled();
             }
-
-            HandleDialogs(input);
 
             HandleScreenshot(input, result);
 
@@ -61,92 +54,6 @@ namespace InfoSupport.Tessler.Unity
         {
             get;
             set;
-        }
-
-        private void PrepareDialogs(IMethodInvocation input)
-        {
-            var driver = TesslerState.GetWebDriver();
-
-            driver.ClearDialogMessages();
-
-            // Alert Dialog
-            var alertDialogAttribute = input.MethodBase.GetCustomAttributes(typeof(AlertDialogAttribute), true).Cast<AlertDialogAttribute>().FirstOrDefault();
-            driver.SetDialogAlert(alertDialogAttribute != null);
-
-            // Confirm Dialog
-            var confirmDialogAttribute = input.MethodBase.GetCustomAttributes(typeof(ConfirmDialogAttribute), true).Cast<ConfirmDialogAttribute>().FirstOrDefault();
-            if(confirmDialogAttribute != null) 
-            {
-                driver.SetDialogConfirm(confirmDialogAttribute.Confirmation);
-            }
-            else
-            {
-                driver.SetDialogConfirm();
-            }
-
-            // Leave Page Dialog
-            var leavePageDialogAttribute = input.MethodBase.GetCustomAttributes(typeof(LeavePageDialogAttribute), true).Cast<LeavePageDialogAttribute>().FirstOrDefault();
-            driver.SetDialogLeavePage(leavePageDialogAttribute != null);
-        }
-
-        private void HandleDialogs(IMethodInvocation input)
-        {
-            var driver = TesslerState.GetWebDriver();
-
-            // Alert Dialog
-            var alertDialogAttribute = input.MethodBase.GetCustomAttributes(typeof(AlertDialogAttribute), true).Cast<AlertDialogAttribute>().FirstOrDefault();
-            var alertDialogMessage = driver.GetDialogAlertMessage();
-            HandleDialogMessage("Alert", alertDialogAttribute, alertDialogMessage);
-
-            // Confirm Dialog
-            var confirmDialogAttribute = input.MethodBase.GetCustomAttributes(typeof(ConfirmDialogAttribute), true).Cast<ConfirmDialogAttribute>().FirstOrDefault();
-            if (confirmDialogAttribute != null)
-            {
-                driver.SetDialogConfirm(confirmDialogAttribute.Confirmation);
-            }
-            else
-            {
-                driver.SetDialogConfirm();
-            }
-
-            // Leave Page Dialog
-            var leavePageDialogAttribute = input.MethodBase.GetCustomAttributes(typeof(LeavePageDialogAttribute), true).Cast<LeavePageDialogAttribute>().FirstOrDefault();
-            driver.SetDialogLeavePage(leavePageDialogAttribute != null);
-        }
-
-        private void HandleDialogMessage(string dialogType, LeavePageDialogAttribute attribute, string dialogMessage)
-        {
-            if (attribute == null && dialogMessage != null)
-            {
-                Assert.Fail("Unexpected '{0}' Dialog was found", dialogType);
-            }
-            else if (attribute != null)
-            {
-                if (attribute.ResultAction == DialogResultAction.DoNothing) return;
-
-                if (dialogMessage == null)
-                {
-                    CreateAssertOrVerifyMessage(attribute.ResultAction,
-                        string.Format("Expected '{0}' Dialog, but none was found", dialogType));
-                }
-                else if (attribute.ExpectedMessage != null && dialogMessage != attribute.ExpectedMessage)
-                {
-                    CreateAssertOrVerifyMessage(attribute.ResultAction,
-                        string.Format("Expected '{0}' Dialog was found, but actual message <{1}> does not equal expected message <{2}>", dialogType, dialogMessage, attribute.ExpectedMessage));
-                }
-            }
-        }
-
-        private void CreateAssertOrVerifyMessage(DialogResultAction resultAction, string message)
-        {
-            if (resultAction == DialogResultAction.Assert)
-            {
-                Assert.Fail(message);
-            }
-            else if (resultAction == DialogResultAction.Verify)
-            {
-                Verify.Fail(message);
-            }
         }
 
         private void HandleScreenshot(IMethodInvocation input, IMethodReturn result)

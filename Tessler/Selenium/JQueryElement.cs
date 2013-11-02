@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Util;

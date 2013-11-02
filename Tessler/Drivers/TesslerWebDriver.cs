@@ -1,17 +1,17 @@
-﻿using InfoSupport.Tessler.Adapters.Ajax;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using InfoSupport.Tessler.Adapters.Ajax;
 using InfoSupport.Tessler.Configuration;
 using InfoSupport.Tessler.Selenium;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -263,141 +263,6 @@ namespace InfoSupport.Tessler.Drivers
                 Log.FatalFormat("Find element exception: '{0}'", e.Message);
                 throw;
             }
-        }
-
-        public void SetDialogLeavePage(bool expected = false)
-        {
-            InitializeSetTesslerData();
-
-            var sb = new StringBuilder();
-            sb.Append("window.onbeforeunload = function () {");
-            //sb.Append("window.setTesslerData('leavepage-message', window.onbeforeunload());");
-
-            // Throw error if not expected
-            if (!expected)
-            {
-                sb.Append("throw Error('An unexpected Leave Page Dialog openend.');");
-            }
-
-            sb.Append("}");
-
-            Js(sb.ToString());
-        }
-
-        public void SetDialogAlert(bool expected = false)
-        {
-            InitializeSetTesslerData();
-
-            var sb = new StringBuilder();
-            sb.Append("alert = function (text) { window.setTesslerData('alert-message', text);");
-
-            // Throw error if not expected
-            if (!expected)
-            {
-                sb.Append("throw Error('An unexpected Alert Dialog openend.');");
-            }
-        
-            sb.Append("}");
-
-            InsertInScriptTag(sb.ToString(), "tessler-alert-message");
-        }
-
-        public string GetDialogAlertMessage()
-        {
-            InitializeGetTesslerData();
-            
-            var message = Js("window.getTesslerData('alert-message')");
-            return message != null ? message.ToString() : null;
-        }
-
-        public void SetDialogConfirm(bool? result = null)
-        {
-            InitializeSetTesslerData();
-
-            var sb = new StringBuilder();
-            sb.Append("confirm = function (text) { window.setTesslerData('confirm-message', text);");
-
-            // Either return the given result value or throw error if not expected
-            if(result.HasValue)
-            {
-                sb.Append("return " + (result.Value ? "true" : "false") + "; }");
-            }
-            else
-            {
-                sb.Append("throw Error('An unexpected Confirm Dialog openend.');");
-            }
-
-            sb.Append("}");
-
-            InsertInScriptTag(sb.ToString(), "tessler-confirm-message");
-        }
-
-        public string GetDialogConfirmMessage()
-        {
-            InitializeGetTesslerData();
-
-            var message = Js("window.getTesslerData('confirm-message')");
-            return message != null ? message.ToString() : null;
-        }
-
-        public void ClearDialogMessages()
-        {
-            var sb = new StringBuilder();
-
-            sb.Append("if(window.sessionStorage) {");
-            sb.Append("window.sessionStorage.removeItem('tessler-alert-message');");
-            sb.Append("window.sessionStorage.removeItem('tessler-confirm-message');");
-            sb.Append("} else if(window.tessler) {");
-            sb.Append("window.tessler['alert-message'] = null;");
-            sb.Append("window.tessler['confirm-message'] = null;");
-            sb.Append("}");
-
-            Js(sb.ToString());
-        }
-        
-        private void InitializeSetTesslerData()
-        {
-            var sb = new StringBuilder();
-            sb.Append("window.setTesslerData = window.setTesslerData || function(key, data) {");
-            sb.Append("if(window.sessionStorage) {");
-            sb.Append("window.sessionStorage.setItem('tessler-' + key, data);");
-            sb.Append("} else {");
-            sb.Append("window.tessler = window.tessler || new Array();");
-            sb.Append("window.tessler[key] = data;");
-            sb.Append("}");
-            sb.Append("};");
-
-            InsertInScriptTag(sb.ToString(), "set-tessler-data");
-        }
-
-        private void InitializeGetTesslerData()
-        {
-            var sb = new StringBuilder();
-            sb.Append("window.getTesslerData = window.getTesslerData || function(key) {");
-            sb.Append("if(window.sessionStorage) {");
-            sb.Append("return window.sessionStorage.getItem('tessler-' + key);");
-            sb.Append("} else {");
-            sb.Append("window.tessler = window.tessler || new Array();");
-            sb.Append("return window.tessler[key];");
-            sb.Append("}");
-            sb.Append("};");
-
-            InsertInScriptTag(sb.ToString(), "get-tessler-data");
-        }
-
-        private void InsertInScriptTag(string javascript, string id)
-        {
-            StringBuilder js = new StringBuilder();
-
-            js.AppendFormat("if(document.getElementById('{0}') == null) {{", id);
-            js.Append("var script = document.createElement('script');");
-            js.AppendFormat("script.innerHTML = \"{0}\";", javascript);
-            js.AppendFormat("script.id = '{0}';", id);
-            js.Append("script.type = 'text/javascript';");
-            js.Append("document.getElementsByTagName('head')[0].appendChild(script);");
-            js.Append("}");
-
-            Js(js.ToString());
         }
     }
 }

@@ -112,31 +112,5 @@ namespace InfoSupport.Tessler.Drivers
         IEnumerable<JQueryElement> WaitFor(JQuery by);
 
         #endregion
-
-        #region Dialogs
-
-        /// <summary>
-        /// Mocks javascript alert
-        /// </summary>
-        void SetDialogAlert(bool expected = false);
-
-        /// <summary>
-        /// Sets the return value for javascript confirm dialogs
-        /// </summary>
-        /// <param name="result">What the result of a confirm() call should be</param>
-        void SetDialogConfirm(bool? result = null);
-
-        /// <summary>
-        /// Mocks the javascript leave this page dialog
-        /// </summary>
-        void SetDialogLeavePage(bool expected = false);
-
-        string GetDialogAlertMessage();
-
-        string GetDialogConfirmMessage();
-
-        void ClearDialogMessages();
-
-        #endregion
     }
 }

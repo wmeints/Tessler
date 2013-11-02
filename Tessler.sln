@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessler.UnitTest", "Tessler
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessler.SpecFlow", "Tessler.SpecFlow\Tessler.SpecFlow.csproj", "{63ECCB3C-5921-449D-9B64-15173651DAAA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC8EB565-AD23-4541-A345-9582E99DA318}"
+	ProjectSection(SolutionItems) = preProject
+		Local.runsettings = Local.runsettings
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

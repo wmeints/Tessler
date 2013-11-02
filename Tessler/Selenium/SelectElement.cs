@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using OpenQA.Selenium;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Util;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace InfoSupport.Tessler.Selenium
 {

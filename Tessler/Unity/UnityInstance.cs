@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Drivers;
-using InfoSupport.Tessler.Util;
 using Microsoft.Practices.Unity;
 
 namespace InfoSupport.Tessler.Unity
@@ -24,9 +22,9 @@ namespace InfoSupport.Tessler.Unity
             }
         }
 
-        public static T Resolve<T>(params ResolverOverride[] overrides)
+        public static T Resolve<T>()
         {
-            return Instance.Resolve<T>(overrides);
+            return Instance.Resolve<T>();
         }
 
         public static TTargetPageType ResolvePageObject<TSourcePageType, TTargetPageType>(TSourcePageType sourceObject, params ResolverOverride[] overrides)
@@ -96,17 +94,5 @@ namespace InfoSupport.Tessler.Unity
 
             return targetObject;
         }
-
-        //private static bool IsChildOf<TParent, TChild>(TParent parent, TChild child)
-        //{
-        //    var childObject = child as IChildPageObject<TParent, TChild>;
-
-        //    if (childObject == null)
-        //    {
-        //        return false;
-        //    }
-
-            
-        //}
     }
 }

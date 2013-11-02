@@ -1,7 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Text;
 
 namespace InfoSupport.Tessler.Core
 {

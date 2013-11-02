@@ -1,5 +1,4 @@
 ﻿using InfoSupport.Tessler.Adapters.Ajax;
-using InfoSupport.Tessler.Adapters.Database;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
 using Microsoft.Practices.Unity;

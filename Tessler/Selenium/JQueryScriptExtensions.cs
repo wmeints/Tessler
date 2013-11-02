@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using InfoSupport.Tessler.Core;
-using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Util;
 
 namespace InfoSupport.Tessler.Selenium

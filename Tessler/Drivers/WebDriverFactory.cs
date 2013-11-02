@@ -1,18 +1,13 @@
-﻿using InfoSupport.Tessler.Configuration;
+﻿using System;
+using System.IO;
+using InfoSupport.Tessler.Configuration;
+using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Util;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.PhantomJS;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium.Remote;
-using InfoSupport.Tessler.Core;
 
 namespace InfoSupport.Tessler.Drivers
 {
@@ -36,24 +31,15 @@ namespace InfoSupport.Tessler.Drivers
                         profile.AcceptUntrustedCertificates = true;
                         return new FirefoxDriver(profile);
                     }
-                    else
-                    {
-                        var capabilities = DesiredCapabilities.Firefox();
-                        capabilities.SetCapability(CapabilityType.AcceptSslCertificates, true);
 
-                        return new FirefoxDriver(capabilities);
-                    }
+                    var capabilities = DesiredCapabilities.Firefox();
+                    capabilities.SetCapability(CapabilityType.AcceptSslCertificates, true);
 
+                    return new FirefoxDriver(capabilities);
                 case Browser.InternetExplorer:
                     string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
-                    
+
                     return new InternetExplorerDriver(ieDriverFolder);
-
-                case Browser.PhantomJs:
-                    string pjsDriverFolder = UnpackDriver("phantomjs.exe", Resources.PhantomJs);
-
-                    return new PhantomJSDriver(pjsDriverFolder);
-
                 default:
                     string message = string.Format("Error while building webdriver.");
 
