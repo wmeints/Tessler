@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using InfoSupport.Tessler.Configuration;
 using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Drivers;
@@ -24,7 +25,9 @@ namespace InfoSupport.Tessler.Unity
 
         public IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
         {
-            if (interceptionIgnores.Contains(input.MethodBase.Name))
+            var methodBase = input.MethodBase;
+            var isProperty = methodBase.IsSpecialName && (methodBase.Attributes & MethodAttributes.HideBySig) != 0;
+            if (interceptionIgnores.Contains(methodBase.Name) || isProperty)
             {
                 return getNext()(input, getNext);
             }
