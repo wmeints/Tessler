@@ -1,4 +1,7 @@
-﻿using InfoSupport.Tessler.Adapters.Ajax;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using InfoSupport.Tessler.Adapters.Ajax;
 using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Screenshots;
@@ -35,6 +38,22 @@ namespace InfoSupport.Tessler
             {
                 Container.RegisterType<IJavascriptAdapter, JQueryAjaxStatusAdapter>();
             }
+
+            // Page objects
+            var currentAssembly = Assembly.GetAssembly(typeof(TesslerObject));
+            var pageObjects = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a != currentAssembly)
+                .SelectMany(a => a.GetTypes())
+                .Where(a => a.IsSubclassOf(typeof(TesslerObject)))
+                .ToList()
+            ;
+
+            pageObjects.ForEach(po =>
+            {
+                Container.RegisterType(po, new ContainerControlledLifetimeManager());
+
+                Container.Configure<Interception>().SetInterceptorFor(po, new TransparentProxyInterceptor());
+            });
 
             JQueryScriptExtensions.Add("jQuery.expr[':'].equals = function(a, i, m) { var $a = $(a); return ($a.text() == m[3]); }");
         }
