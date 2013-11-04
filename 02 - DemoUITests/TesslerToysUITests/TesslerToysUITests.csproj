@@ -35,9 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="InfoSupport.Tessler, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>S:\Deliverables\Tessler\bin\InfoSupport.Tessler.dll</HintPath>
+    <Reference Include="InfoSupport.Tessler">
+      <HintPath>..\..\99 - Bin\Deliverables\InfoSupport.Tessler\bin\InfoSupport.Tessler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
