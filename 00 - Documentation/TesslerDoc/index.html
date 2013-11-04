@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tessler Automated Testing Framework</title>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/application.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/shCore.js"></script>
+	<script src="js/shBrushCSharp.js"></script>
+	<script src="js/shBrushXml.js"></script>
+	<script type="text/javascript">
+		SyntaxHighlighter.all()
+	</script>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+	<link href="css/bootstrap-glyphicons.css" rel="stylesheet"/>
+	<link href="css/shCore.css" rel="stylesheet"/>
+	<link href="css/shThemeDefault.css" rel="stylesheet"/>
+	<link href="css/styles.css" rel="stylesheet"/>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Tessler Automated Testing Framework</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>		
+		<p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+      </div>
+
+      <div class="body-content">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="bs-sidebar affix-top">
+					<ul class="nav bs-sidenav">
+						<li>
+							<a href="#introduction">Introduction</a>
+							<ul class="nav">
+								<li><a href="#introduction-overview">Overview</a></li>
+								<li><a href="#introduction-architecture">Architecture</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#projectsetup">Project setup</a>
+							<ul class="nav">
+								<li><a href="#projectsetup-exampleproject">Example project</a></li>
+								<li><a href="#projectsetup-fromscratch">From scratch</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#pageobjects">Page objects</a>
+							<ul class="nav">
+								<li><a href="#pageobjects-simpleexample">Simple example</a></li>
+								<li><a href="#pageobjects-baseclass">Base class</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#tests">Tests</a>
+						</li>
+						<li>
+							<a href="#configuration">Configuration</a>
+							<ul class="nav">
+								<li><a href="#configuration-appconfig">App.config</a></li>
+								<li><a href="#configuration-fluentapi">Fluent API</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#pageflows">Page flows</a>
+						</li>
+						<li>
+							<a href="#util">Util</a>
+						</li>
+						<li>
+							<a href="#adapters">Adapters</a>
+							<ul class="nav">
+								<li><a href="#adapters-database">Database</a></li>
+								<li><a href="#adapters-javascript">Javascript</a></li>
+								<li><a href="#adapters-unittest">Unit test</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-lg-9">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 id="introduction">Introduction</h1>
+						<h2 id="introduction-overview">Overview</h2>
+						
+						<h2 id="introduction-architecture">Architecture</h2>
+						
+						<h1 id="projectsetup">Project setup</h1>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h2 id="projectsetup-exampleproject">Example project</h2>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h2 id="projectsetup-fromscratch">From scratch</h2>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h1 id="pageobjects">Page objects</h1>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h2 id="pageobjects-simpleexample">Simple example</h2>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h2 id="pageobjects-baseclass">Base class</h2>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h1 id="configuration">Configuration</h1>
+						<p>Tessler supports configuration through either the app.config file or using the fluent api.</p>
+						
+						<h2 id="configuration-appconfig">App.config</h2>
+						<p>Most configuration options can be set using the app.config, with the exception of the adapters. When configuration Tessler using the app.config, you need to add the following config section:</p>
+						<div class="panel panel-primary">
+							<div class="panel-heading">App.config</div>
+							<script type="syntaxhighlighter" class="brush: xml; highlight: 4"><![CDATA[
+							<?xml version="1.0" encoding="utf-8"?>
+							<configuration>
+								<configSections>
+									<section name="tessler" type="InfoSupport.Tessler.Configuration.TesslerSection, InfoSupport.Tessler" />
+								</configSections>
+								...
+								<tessler>
+								
+								</tessler>
+								...
+							</configuration>]]>
+							</script>
+						</div>
+						<p>So now we can add the actual configuration elements.</p>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Ajax wait interval</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<ajaxWaitInterval value="0.2" />]]>
+							</script>
+							<div class="panel-footer">How long to wait when an ajax request is pending before polling for pending requests again. Specified in seconds.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Ajax wait time</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<ajaxWaitTime value="10" />]]>
+							</script>
+							<div class="panel-footer">How long to keep polling for pending ajax requests before timing out. If a request is still running after this, the test continues. Specified in seconds.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Browser</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<browser value="Chrome" />]]>
+							</script>
+							<div class="panel-footer">Which browser to use. Supported values are Chrome, Firefox and InternetExplorer.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Date format</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<dateFormat value="dd-MM-yyyy" />]]>
+							</script>
+							<div class="panel-footer">Used for parsing dates when asserting them. Also used to format a DateTime object when typing it in a textfield.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Find element timeout</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<findElementTimeout value="10" />]]>
+							</script>
+							<div class="panel-footer">How long the driver will look for an element before timing out. This compensates for any page loading delays. Specified in seconds.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">jQuery url</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<jQueryUrl value="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />]]>
+							</script>
+							<div class="panel-footer">An url to a jQuery release, only used when jQuery is not already loaded. jQuery is internally used by Tessler.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Maximize browser</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<maximizeBrowser value="true" />]]>
+							</script>
+							<div class="panel-footer">Whether to maximize the browser when running tests. Can either be true or false.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Not visible wait time</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<notVisibleWaitTime value="1" />]]>
+							</script>
+							<div class="panel-footer">How long the driver will wait for an element to not be visible. This compensates for elements becoming invisible after a short delay. Specified in seconds.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Recycle browser</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<recycleBrowser value="true" />]]>
+							</script>
+							<div class="panel-footer">Whether to re-use browser instances between tests. When false, a new instance will be opened for each test.</div>
+						</div>
+						<p>Recycling the browser will save some time, but it also might cause some issues. First of all, cookies might prove to interfere with other tests.
+						At the end of a test, cookies for the current domain will be removed, but in the case of identity providers some cookies might survive when they're on another domain.
+						Additionally, alerts may mess up subsequent tests. Therefore, we recommend to only enable this on development environments.</p>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Screenshots path</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<screenshotsPath value="Screenshots" />]]>
+							</script>
+							<div class="panel-footer">Where to save screenshots. This is a relative path starting at the test runner executable.</div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Strip namespace</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<stripNamespace value="" />]]>
+							</script>
+							<div class="panel-footer">Which part of the namespace to strip when creating a folder structure.</div>
+						</div>
+						<p>When saving screenshots, the framework will create a directory structure based on the namespace, class and test method name of the current test.
+						Sometimes, that leads to a very deep directory structure, because of any recurring stuff added to the namespace.</p>
+						<p>If, for example, the fully qualified name of one of your tests is 'InfoSupport.C2Wmo.AutomatedTesting.AutoUITests.Portaal.Ambtenaar.Inloggen.InloggenSuccesvolTest',
+						you can choose to strip the first bit off by setting this property to 'InfoSupport.C2Wmo.AutomatedTesting.AutoUITests'.
+						That way, directory creation will start at 'Portaal' for this specific test.</p>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Take screenshot</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<takeScreenshot value="OnFail" />]]>
+							</script>
+							<div class="panel-footer">When to take screenshots of a test run. Supported values are Always, OnFail and Never.</div>
+						</div>
+						<p>The screenshot system has three modes: always, on fail and never. Always and never are self-explanatory. On fail always makes screenshots, but removes them when the test completes successfully.
+						Every time a test is run, any residual screenshots from previous test runs will be removed.</p>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Website url</div>
+							<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<websiteUrl value="" />]]>
+							</script>
+							<div class="panel-footer">Where to navigate the browser to after starting a test. Essentially the first page of the target application.</div>
+						</div>
+						
+						<h2 id="configuration-fluentapi">Fluent API</h2>
+						<p>Tessler can also be configured using code only. Using the fluent API from TesslerState, all properties from the app.config can be set.
+						Also, custom adapters can be configured with the code only approach.</p>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Code example</div>
+							<script type="syntaxhighlighter" class="brush: csharp"><![CDATA[
+							TesslerState.Configure()
+								.SetBrowser(Browser.Firefox)
+								.SetDatabaseConnector<Tessler.Adapters.Database.SqlServerDatabaseAdapter>()
+								.SetJavascriptAdapter<Tessler.Adapters.Ajax.JQueryAjaxStatusAdapter>()
+							;]]>
+							</script>
+						</div>
+						<p>The custom adapters can be used for extending the framework, see the adapters section for more information.</p>
+						
+						<h1 id="pageflows">Page flows</h1>
+						
+						<h1 id="util"></h1>
+						
+						<h1 id="adapters">Adapters</h1>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h2 id="adapters-database">Database</h2>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+					
+						<h2 id="adapters-javascript">Javascript</h2>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+						
+						<h2 id="adapters-unittest">Unit test</h2>
+						<div class="bs-callout bs-callout-danger">
+							<h4>Feature not implemented</h4>
+							<p>This feature is on the roadmap and will be available in a future version.</p>
+						</div>
+						<p>In faucibus cursus dignissim. Sed ipsum dolor, tempus et nulla ut, tristique laoreet neque. Sed id ultricies lacus. Pellentesque lorem lectus, pharetra dignissim facilisis ut, consectetur nec est. Suspendisse in aliquam ante, a ullamcorper arcu. Nunc luctus posuere tortor non feugiat. Etiam turpis nibh, euismod sit amet auctor eget, lobortis id neque.</p>
+					</div>
+				</div>
+				<hr>
+
+				<footer>
+					<p>&copy; Company 2013</p>
+				</footer>
+			</div>
+			</div>
+		</div>
+    </div> <!-- /container -->
+
+  </body>
+</html>
