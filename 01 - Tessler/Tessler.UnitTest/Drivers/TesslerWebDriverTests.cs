@@ -324,7 +324,7 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             var actual = driver.FindElements(JQuery.By(""));
 
-            Assert.IsNull(actual);
+            Assert.AreEqual(0, actual.Count());
 
             webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(a => a.Contains("return jQuery"))), Times.Once());
         }
@@ -336,7 +336,7 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             var actual = driver.FindElements(JQuery.By(""));
 
-            Assert.IsNull(actual);
+            Assert.AreEqual(0, actual.Count());
 
             webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(a => a.Contains("return jQuery"))), Times.Once());
         }
@@ -357,12 +357,13 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void WaitForNotFoundTest()
         {
             webDriverMock.Setup(m => m.ExecuteScript(It.IsAny<string>())).Returns(null);
 
             var actual = driver.WaitFor(JQuery.By(""));
+
+            Assert.AreEqual(0, actual.Count());
         }
 
         [TestMethod]

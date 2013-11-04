@@ -220,7 +220,7 @@ namespace InfoSupport.Tessler.Drivers
             { }
 
             // If elements were found, wrap them in a JQueryElement collection
-            return elements != null ? elements.Select(e => new JQueryElement(this, e, by)) : null;
+            return elements != null ? elements.Select(e => new JQueryElement(this, e, by)) : new List<JQueryElement>();
         }
 
         public bool IsVisible(JQuery by)
@@ -230,9 +230,9 @@ namespace InfoSupport.Tessler.Drivers
                 by = by.Filter(":visible");
 
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(ConfigurationState.NotVisibleWaitTime));
-                wait.Until(d => FindElements(by));
+                var result = wait.Until(d => FindElements(by));
 
-                return true;
+                return result.Count() > 0;
             }
             catch
             {
