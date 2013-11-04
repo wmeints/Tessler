@@ -216,10 +216,8 @@ namespace InfoSupport.Tessler.Drivers
             {
                 elements = Js("return jQuery" + by.Selector + ".get()") as IEnumerable<IWebElement>;
             }
-            catch (Exception e)
-            {
-
-            }
+            catch (Exception)
+            { }
 
             // If elements were found, wrap them in a JQueryElement collection
             return elements != null ? elements.Select(e => new JQueryElement(this, e, by)) : null;
@@ -252,7 +250,7 @@ namespace InfoSupport.Tessler.Drivers
 
                 return result;
             }
-            catch (WebDriverTimeoutException e)
+            catch (WebDriverTimeoutException)
             {
                 Log.FatalFormat("Could not find element(s) '{0}'", by.Selector);
                 Assert.Fail("Could not find element(s) '{0}'", by.Selector);

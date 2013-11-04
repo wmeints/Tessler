@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC8EB565-AD23-4541-A345-9582E99DA318}"
 	ProjectSection(SolutionItems) = preProject
 		Local.runsettings = Local.runsettings
+		Tessler.proj = Tessler.proj
+		Tessler.rules.config = Tessler.rules.config
+		Tessler.shfbproj = Tessler.shfbproj
 	EndProjectSection
 EndProject
 Global

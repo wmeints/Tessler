@@ -1,5 +1,6 @@
 ﻿using System.CodeDom;
 using System.Linq;
+using InfoSupport.Tessler.Util;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.UnitTestProvider;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
@@ -30,6 +31,12 @@ namespace InfoSupport.Tessler.SpecFlow
         {
         }
 
+        /// <summary>
+        /// Setup the test class
+        /// </summary>
+        /// <param name="generationContext"></param>
+        /// <param name="featureTitle"></param>
+        /// <param name="featureDescription"></param>
         public override void SetTestClass(TestClassGenerationContext generationContext, string featureTitle, string featureDescription)
         {
             base.SetTestClass(generationContext, featureTitle, featureDescription);
@@ -77,8 +84,14 @@ namespace InfoSupport.Tessler.SpecFlow
             generationContext.TestClass.BaseTypes.Add(typeof(BaseFeature));
         }
 
+        /// <summary>
+        /// Setup the test initialize method
+        /// </summary>
+        /// <param name="generationContext"></param>
         public override void SetTestInitializeMethod(TestClassGenerationContext generationContext)
         {
+            Guard.ArgumentNotNull(generationContext, "generationContext");
+
             base.SetTestInitializeMethod(generationContext);
 
             //InfoSupport.Tessler.Core.TesslerState.TestInitialize(TestContext);
@@ -93,6 +106,12 @@ namespace InfoSupport.Tessler.SpecFlow
                         new CodePropertyReferenceExpression(new CodeThisReferenceExpression(), "TestContext"))));
         }
 
+        /// <summary>
+        /// Setup the test method
+        /// </summary>
+        /// <param name="generationContext"></param>
+        /// <param name="testMethod"></param>
+        /// <param name="scenarioTitle"></param>
         public override void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
         {
             base.SetTestMethod(generationContext, testMethod, scenarioTitle);

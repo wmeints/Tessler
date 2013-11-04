@@ -16,6 +16,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,7 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>S:\SupportFiles\FxCop\tessler.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,7 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>S:\SupportFiles\FxCop\tessler.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
@@ -128,8 +128,6 @@
     <Compile Include="Selenium\JQueryScriptExtensions.cs" />
     <Compile Include="Selenium\SelectElement.cs" />
     <Compile Include="Configuration\ConfigurationState.cs" />
-    <Compile Include="Util\DirectoryCleanup.cs" />
-    <Compile Include="Util\FluentInterceptableObject.cs" />
     <Compile Include="Unity\AnyMatchingRule.cs" />
     <Compile Include="Unity\CallHandler.cs" />
     <Compile Include="Core\PageObject.cs" />
@@ -142,8 +140,11 @@
     <Compile Include="UnityConfiguration.cs" />
     <Compile Include="Unity\UnityInstance.cs" />
     <Compile Include="Unity\WebDriverLifetimeManager.cs" />
-    <Compile Include="Util\Log.cs" />
     <Compile Include="Configuration\TakeScreenshot.cs" />
+    <Compile Include="Util\DirectoryCleanup.cs" />
+    <Compile Include="Util\FluentInterceptableObject.cs" />
+    <Compile Include="Util\Guard.cs" />
+    <Compile Include="Util\Log.cs" />
     <Compile Include="Util\Retry.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -173,12 +174,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\chromedriver.exe" />
+    <None Include="S:\SupportFiles\FxCop\tessler.ruleset">
+      <Link>tessler.ruleset</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IEDriverServer.exe" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RestoreFromSnapshotQuery.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="S:\SupportFiles\FxCop\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -67,6 +67,8 @@ namespace InfoSupport.Tessler
                 var container = UnityInstance.Instance;
 
                 container.AddNewExtension<UnityConfiguration>();
+
+                isInitialized = true;
             }
         }
     }
