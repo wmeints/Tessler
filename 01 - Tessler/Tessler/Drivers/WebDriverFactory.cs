@@ -57,10 +57,14 @@ namespace InfoSupport.Tessler.Drivers
             Directory.CreateDirectory(tempFolder);
 
             var driverPath = Path.Combine(tempFolder, binaryName);
-            if (!File.Exists(driverPath))
+            try
             {
                 // Write driver to temp folder
                 File.WriteAllBytes(driverPath, driver);
+            }
+            catch (Exception e)
+            {
+                throw new FileLoadException(string.Format("Could not deploy the driver '{0}', maybe the driver is still running?", binaryName), e);
             }
 
             return tempFolder;
