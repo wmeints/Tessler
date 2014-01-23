@@ -8,8 +8,8 @@
     <ProjectGuid>{63ECCB3C-5921-449D-9B64-15173651DAAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tessler.SpecFlow</RootNamespace>
-    <AssemblyName>Tessler.SpecFlow</AssemblyName>
+    <RootNamespace>InfoSupport.Tessler.SpecFlow</RootNamespace>
+    <AssemblyName>InfoSupport.Tessler.SpecFlow</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -40,7 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <DocumentationFile>bin\Debug\Tessler.SpecFlow.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\InfoSupport.Tessler.SpecFlow.xml</DocumentationFile>
     <CodeAnalysisRuleSet>S:\SupportFiles\FxCop\tessler.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -51,7 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <DocumentationFile>bin\Release\Tessler.SpecFlow.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\InfoSupport.Tessler.SpecFlow.xml</DocumentationFile>
     <CodeAnalysisRuleSet>S:\SupportFiles\FxCop\tessler.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>

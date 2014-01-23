@@ -10,6 +10,8 @@ using InfoSupport.Tessler.Unity;
 using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
+using System.IO;
+using System.Collections.Generic;
 
 namespace InfoSupport.Tessler
 {
@@ -39,16 +41,8 @@ namespace InfoSupport.Tessler
                 Container.RegisterType<IJavascriptAdapter, JQueryAjaxStatusAdapter>();
             }
 
-            // Page objects
-            var currentAssembly = Assembly.GetAssembly(typeof(TesslerObject));
-            var pageObjects = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a != currentAssembly)
-                .SelectMany(a => a.GetTypes())
-                .Where(a => a.IsSubclassOf(typeof(TesslerObject)))
-                .ToList()
-            ;
-
-            pageObjects.ForEach(po =>
+            // Register Page objects
+            GetAllPageObjects().ToList().ForEach(po =>
             {
                 Container.RegisterType(po, new ContainerControlledLifetimeManager());
 
@@ -58,18 +52,28 @@ namespace InfoSupport.Tessler
             JQueryScriptExtensions.Add("jQuery.expr[':'].equals = function(a, i, m) { var $a = $(a); return ($a.text() == m[3]); }");
         }
 
-        private static bool isInitialized;
+        private static IEnumerable<Type> GetAllPageObjects()
+        {
+            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var currentAssembly = Assembly.GetExecutingAssembly();
 
+            // Ensure alle references assemblies are loaded
+            var loadedPaths = loadedAssemblies.Where(a => !a.IsDynamic).Select(a => a.Location).ToArray();
+            var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
+            var toLoad = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
+            toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
+            
+            return loadedAssemblies
+                .Where(a => a.GetReferencedAssemblies().Any(r => r.ToString() == currentAssembly.GetName().ToString()))
+                .SelectMany(a => a.GetTypes())
+                .Where(a => a.IsSubclassOf(typeof(TesslerObject)))
+            ;
+        }
+        
         internal static void InitializeStandAlone()
         {
-            if (!isInitialized)
-            {
-                var container = UnityInstance.Instance;
 
-                container.AddNewExtension<UnityConfiguration>();
-
-                isInitialized = true;
-            }
+            UnityInstance.Instance.AddNewExtension<UnityConfiguration>();
         }
     }
 }
