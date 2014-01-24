@@ -42,6 +42,23 @@ namespace InfoSupport.Tessler.SpecFlow
             base.SetTestClass(generationContext, featureTitle, featureDescription);
 
             SetupTesslerContext(generationContext);
+            
+            AddTestCleanupStatement(generationContext);
+        }
+
+        private void AddTestCleanupStatement(TestClassGenerationContext generationContext)
+        {
+            //InfoSupport.Tessler.Core.TesslerState.TestInitialize(TestContext);
+            generationContext.TestCleanupMethod.Statements.Add(
+                new CodeExpressionStatement(
+                    new CodeMethodInvokeExpression(
+                        new CodeTypeReferenceExpression(
+                            "InfoSupport.Tessler.Core.TesslerState"
+                        ),
+                        "TestCleanup"
+                    )
+                )
+            );
         }
 
         /// <summary>
@@ -95,7 +112,6 @@ namespace InfoSupport.Tessler.SpecFlow
             base.SetTestInitializeMethod(generationContext);
 
             //InfoSupport.Tessler.Core.TesslerState.TestInitialize(TestContext);
-
             generationContext.TestInitializeMethod.Statements.Add(
                 new CodeExpressionStatement(
                     new CodeMethodInvokeExpression(
