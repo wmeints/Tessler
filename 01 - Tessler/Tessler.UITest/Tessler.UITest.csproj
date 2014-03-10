@@ -51,9 +51,21 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssemblyInitializer.cs" />
+    <Compile Include="PageObjects\AjaxPageObject.cs" />
+    <Compile Include="PageObjects\BasePageObject.cs" />
+    <Compile Include="PageObjects\FormsPageObject.cs" />
+    <Compile Include="PageObjects\HomePageObject.cs" />
+    <Compile Include="PageObjects\JQueryPageObject.cs" />
+    <Compile Include="PageObjects\PopupsPageObject.cs" />
+    <Compile Include="PageObjects\SpecialCasesPageObject.cs" />
+    <Compile Include="PageObjects\TablesPageObject.cs" />
+    <Compile Include="PageObjects\WhitePageObject.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="DefectTests.cs" />
+    <Compile Include="DefectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FormsTest.cs" />
+    <Compile Include="JQueryTest.cs" />
+    <Compile Include="TablesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tessler\Tessler.csproj">
@@ -64,9 +76,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tessler.UITest
 {
     [TestClass]
-    public class DefectTests : TestBase
+    public class DefectTest : TestBase
     {
         [TestInitialize]
         public override void TestInitialize()

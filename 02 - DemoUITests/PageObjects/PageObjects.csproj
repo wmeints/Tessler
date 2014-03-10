@@ -50,9 +50,16 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AjaxPageObject.cs" />
+    <Compile Include="BasePageObject.cs" />
+    <Compile Include="FormsPageObject.cs" />
     <Compile Include="HomePageObject.cs" />
-    <Compile Include="PageTwoPageObject.cs" />
+    <Compile Include="JQueryPageObject.cs" />
+    <Compile Include="PopupsPageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecialCasesPageObject.cs" />
+    <Compile Include="TablesPageObject.cs" />
+    <Compile Include="WhitePageObject.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

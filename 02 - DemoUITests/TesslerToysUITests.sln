@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesslerToysUITests", "Tessl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageObjects", "PageObjects\PageObjects.csproj", "{EA2CEF8B-5F0B-431E-858D-F21480D40DE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageFlows", "PageFlows\PageFlows.csproj", "{C7E2398D-3D5B-447A-972B-8EDD1C7A15B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{EA2CEF8B-5F0B-431E-858D-F21480D40DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA2CEF8B-5F0B-431E-858D-F21480D40DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA2CEF8B-5F0B-431E-858D-F21480D40DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7E2398D-3D5B-447A-972B-8EDD1C7A15B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7E2398D-3D5B-447A-972B-8EDD1C7A15B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7E2398D-3D5B-447A-972B-8EDD1C7A15B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7E2398D-3D5B-447A-972B-8EDD1C7A15B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

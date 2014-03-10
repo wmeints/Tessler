@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ChromeDriver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\packages\webdriver.chromedriver.win32.2.7.0.0\content\chromedriver.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\packages\WebDriver.ChromeDriver.win32.2.9.0.0\content\chromedriver.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="IEDriverServer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\packages\WebDriver.IEDriverServer.win32.2.34.0\content\IEDriverServer.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
