@@ -166,6 +166,12 @@ namespace InfoSupport.Tessler.Selenium
                 throw new InvalidSelectorException();
             }
 
+            if (result.Count() == 0)
+            {
+                Assert.Fail("Selector '{0}' returned no elements", selector.Selector);
+                throw new InvalidSelectorException();
+            }
+
             return result.Single();
         }
 

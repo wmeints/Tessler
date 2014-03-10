@@ -25,9 +25,9 @@ namespace InfoSupport.Tessler.Core
 
         internal static MethodInfo TestMethod { get { return testMethod; } }
 
-        internal static int? TestIterationIndex 
-        { 
-            get 
+        internal static int? TestIterationIndex
+        {
+            get
             {
                 var datasource = testMethod.GetCustomAttributes(typeof(DataSourceAttribute), true).FirstOrDefault() as DataSourceAttribute;
                 if (datasource == null)
@@ -35,7 +35,7 @@ namespace InfoSupport.Tessler.Core
                     return null;
                 }
                 return testContext.DataRow.Table.Rows.IndexOf(testContext.DataRow);
-            } 
+            }
         }
 
         internal static string CurrentBrowserProfile { get { return currentBrowserProfile; } }
@@ -92,7 +92,7 @@ namespace InfoSupport.Tessler.Core
 
             // Clear VerifyFails
             Verify.Fails.Clear();
-            
+
             // Setup webdriver and reset databases
             Task.WaitAll(
                 Task.Factory.StartNew(new Action(() => SetupWebDriver())),
@@ -131,26 +131,32 @@ namespace InfoSupport.Tessler.Core
             }
         }
 
+        private static bool isInitialized;
         public static void AssemblyInitialize()
         {
-            UnityConfiguration.InitializeStandAlone();
+            if (!isInitialized)
+            {
+                UnityConfiguration.InitializeStandAlone();
 
-            Log.Info("- Configuration -");
-            Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
-            Log.InfoFormat("Find element timeout: '{0}'", ConfigurationState.FindElementTimeout);
-            Log.InfoFormat("Wait time: '{0}'", ConfigurationState.WaitTime);
-            Log.InfoFormat("Not visible wait time: '{0}'", ConfigurationState.NotVisibleWaitTime);
-            Log.InfoFormat("Browser: '{0}'", ConfigurationState.Browser);
-            Log.InfoFormat("Screenshots path: '{0}'", ConfigurationState.ScreenshotsPath);
-            Log.InfoFormat("Make screenshot: '{0}'", ConfigurationState.MakeScreenshot);
-            Log.InfoFormat("Maximize browser: '{0}'", ConfigurationState.MaximizeBrowser);
-            Log.InfoFormat("Recycle browser: '{0}'", ConfigurationState.RecycleBrowser);
-            Log.InfoFormat("Ajax wait interval: '{0}'", ConfigurationState.AjaxWaitInterval);
-            Log.InfoFormat("Ajax wait time: '{0}'", ConfigurationState.AjaxWaitTime);
-            Log.InfoFormat("JQuery url: '{0}'", ConfigurationState.JQueryUrl);
-            Log.InfoFormat("Date format: '{0}'", ConfigurationState.DateFormat);
-            Log.InfoFormat("Strip namespace: '{0}'", ConfigurationState.StripNamespace);
-            Log.Info("-----------------");
+                Log.Info("- Configuration -");
+                Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
+                Log.InfoFormat("Find element timeout: '{0}'", ConfigurationState.FindElementTimeout);
+                Log.InfoFormat("Wait time: '{0}'", ConfigurationState.WaitTime);
+                Log.InfoFormat("Not visible wait time: '{0}'", ConfigurationState.NotVisibleWaitTime);
+                Log.InfoFormat("Browser: '{0}'", ConfigurationState.Browser);
+                Log.InfoFormat("Screenshots path: '{0}'", ConfigurationState.ScreenshotsPath);
+                Log.InfoFormat("Make screenshot: '{0}'", ConfigurationState.MakeScreenshot);
+                Log.InfoFormat("Maximize browser: '{0}'", ConfigurationState.MaximizeBrowser);
+                Log.InfoFormat("Recycle browser: '{0}'", ConfigurationState.RecycleBrowser);
+                Log.InfoFormat("Ajax wait interval: '{0}'", ConfigurationState.AjaxWaitInterval);
+                Log.InfoFormat("Ajax wait time: '{0}'", ConfigurationState.AjaxWaitTime);
+                Log.InfoFormat("JQuery url: '{0}'", ConfigurationState.JQueryUrl);
+                Log.InfoFormat("Date format: '{0}'", ConfigurationState.DateFormat);
+                Log.InfoFormat("Strip namespace: '{0}'", ConfigurationState.StripNamespace);
+                Log.Info("-----------------");
+                
+                isInitialized = true;
+            }
         }
 
         public static void AssemblyCleanup()

@@ -78,10 +78,10 @@ namespace Tessler.UnitTest.Selenium
 
                 var element = jQuery.Element();
             }
-            catch (InvalidOperationException e)
+            catch (AssertFailedException e)
             {
                 threwException = true;
-                Assert.AreEqual("Sequence contains no elements", e.Message);
+                Assert.IsTrue(e.Message.Contains("returned no elements"));
             }
 
             Assert.IsTrue(threwException);
@@ -153,10 +153,10 @@ namespace Tessler.UnitTest.Selenium
 
                 var element = jQuery.Select();
             }
-            catch (InvalidOperationException e)
+            catch (AssertFailedException e)
             {
                 threwException = true;
-                Assert.AreEqual("Sequence contains no elements", e.Message);
+                Assert.IsTrue(e.Message.Contains("returned no elements"));
             }
 
             Assert.IsTrue(threwException);
