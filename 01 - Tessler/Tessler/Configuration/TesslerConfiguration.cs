@@ -17,6 +17,11 @@ namespace InfoSupport.Tessler.Configuration
             return TesslerSectionInstance.AjaxWaitTimeConfig.Value;
         }
 
+        internal static bool AutoLoadJQuery()
+        {
+            return TesslerSectionInstance.AutoLoadJQuery.Value;
+        }
+
         internal static Browser Browser()
         {
             return TesslerSectionInstance.BrowserConfig.Value;
@@ -94,6 +99,7 @@ namespace InfoSupport.Tessler.Configuration
 
         private const string ELEMENTNAME_AJAXWAITINTERVAL = "ajaxWaitInterval";
         private const string ELEMENTNAME_AJAXWAITTIME = "ajaxWaitTime";
+        private const string ELEMENTNAME_AUTOLOADJQUERY = "autoLoadJQuery";
         private const string ELEMENTNAME_BROWSER = "browser";
         private const string ELEMENTNAME_BROWSERPROFILE = "browserProfile";
         private const string ELEMENTNAME_DATEFORMAT = "dateFormat";
@@ -121,11 +127,12 @@ namespace InfoSupport.Tessler.Configuration
 
         private const float DEFAULTVALUE_AJAXWAITINTERVAL = 0.2f;
         private const float DEFAULTVALUE_AJAXWAITTIME = 10f;
+        private const bool DEFAULTVALUE_AUTOLOADJQUERY = true;
         private const Browser DEFAULTVALUE_BROWSER = Browser.Chrome;
         private const string DEFAULTVALUE_BROWSERPROFILE = "";
         private const string DEFAULTVALUE_DATEFORMAT = "dd-MM-yyyy";
         private const float DEFAULTVALUE_FINDELEMENT = 10f;
-        private const string DEFAULTVALUE_JQUERYURL = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js";
+        private const string DEFAULTVALUE_JQUERYURL = "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js";
         private const bool DEFAULTVALUE_MAXIMIZEBROWSER = true;
         private const float DEFAULTVALUE_NOTVISIBLEWAIT = 1f;
         private const float DEFAULTVALUE_PAUSEWAIT = 1f;
@@ -155,6 +162,15 @@ namespace InfoSupport.Tessler.Configuration
             get
             {
                 return (AjaxWaitTimeElement)this[ELEMENTNAME_AJAXWAITTIME];
+            }
+        }
+
+        [ConfigurationProperty(ELEMENTNAME_AUTOLOADJQUERY, IsRequired = false)]
+        internal AutoLoadJQueryElement AutoLoadJQuery
+        {
+            get
+            {
+                return (AutoLoadJQueryElement)this[ELEMENTNAME_AUTOLOADJQUERY];
             }
         }
 
@@ -330,6 +346,30 @@ namespace InfoSupport.Tessler.Configuration
                     {
                         string message = string.Format("Value '{0}' of element '{1}' is invalid, value must be a floating number.",
                             this[PROPERTYNAME_DEFAULT], ELEMENTNAME_AJAXWAITTIME);
+
+                        Log.Fatal(message);
+                        throw new ConfigurationErrorsException(message);
+                    }
+                }
+            }
+        }
+
+        internal class AutoLoadJQueryElement : ConfigurationElement
+        {
+            [ConfigurationProperty(PROPERTYNAME_DEFAULT, DefaultValue = DEFAULTVALUE_AUTOLOADJQUERY, IsRequired = true)]
+            public bool Value
+            {
+                get
+                {
+                    if(this[PROPERTYNAME_DEFAULT] is bool)
+                    return (bool)this[PROPERTYNAME_DEFAULT];
+
+                    bool result;
+                    if(bool.TryParse((string)this[PROPERTYNAME_DEFAULT], out result))
+                        return result;
+                    else{
+                        string message = string.Format("Value '{0}' of element '{1}' is invalid, value must be a boolean.",
+                            this[PROPERTYNAME_DEFAULT], ELEMENTNAME_AUTOLOADJQUERY);
 
                         Log.Fatal(message);
                         throw new ConfigurationErrorsException(message);

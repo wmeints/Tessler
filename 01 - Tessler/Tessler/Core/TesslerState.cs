@@ -99,6 +99,8 @@ namespace InfoSupport.Tessler.Core
                 Task.Factory.StartNew(new Action(() => ResetDatabases()))
             );
 
+            Configure().RestoreState();
+
             GetScreenshotManager().Initialize();
         }
 
@@ -124,8 +126,8 @@ namespace InfoSupport.Tessler.Core
 
                 var screenshotManager = GetScreenshotManager();
 
-                bool keepScreenshots = ConfigurationState.MakeScreenshot == TakeScreenshot.Always ||
-                    (ConfigurationState.MakeScreenshot == TakeScreenshot.OnFail && !GetTestSuccessful());
+                bool keepScreenshots = ConfigurationState.TakeScreenshot == TakeScreenshot.Always ||
+                    (ConfigurationState.TakeScreenshot == TakeScreenshot.OnFail && !GetTestSuccessful());
 
                 screenshotManager.Finalize(keepScreenshots);
             }
@@ -138,25 +140,27 @@ namespace InfoSupport.Tessler.Core
             {
                 UnityConfiguration.InitializeStandAlone();
 
-                Log.Info("- Configuration -");
-                Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
-                Log.InfoFormat("Find element timeout: '{0}'", ConfigurationState.FindElementTimeout);
-                Log.InfoFormat("Wait time: '{0}'", ConfigurationState.WaitTime);
-                Log.InfoFormat("Not visible wait time: '{0}'", ConfigurationState.NotVisibleWaitTime);
-                Log.InfoFormat("Browser: '{0}'", ConfigurationState.Browser);
-                Log.InfoFormat("Screenshots path: '{0}'", ConfigurationState.ScreenshotsPath);
-                Log.InfoFormat("Make screenshot: '{0}'", ConfigurationState.MakeScreenshot);
-                Log.InfoFormat("Maximize browser: '{0}'", ConfigurationState.MaximizeBrowser);
-                Log.InfoFormat("Recycle browser: '{0}'", ConfigurationState.RecycleBrowser);
-                Log.InfoFormat("Ajax wait interval: '{0}'", ConfigurationState.AjaxWaitInterval);
-                Log.InfoFormat("Ajax wait time: '{0}'", ConfigurationState.AjaxWaitTime);
-                Log.InfoFormat("JQuery url: '{0}'", ConfigurationState.JQueryUrl);
-                Log.InfoFormat("Date format: '{0}'", ConfigurationState.DateFormat);
-                Log.InfoFormat("Strip namespace: '{0}'", ConfigurationState.StripNamespace);
-                Log.Info("-----------------");
-                
                 isInitialized = true;
             }
+
+            log4net.Config.XmlConfigurator.Configure();
+
+            Log.Info("- Configuration -");
+            Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
+            Log.InfoFormat("Find element timeout: '{0}'", ConfigurationState.FindElementTimeout);
+            Log.InfoFormat("Wait time: '{0}'", ConfigurationState.WaitTime);
+            Log.InfoFormat("Not visible wait time: '{0}'", ConfigurationState.NotVisibleWaitTime);
+            Log.InfoFormat("Browser: '{0}'", ConfigurationState.Browser);
+            Log.InfoFormat("Screenshots path: '{0}'", ConfigurationState.ScreenshotsPath);
+            Log.InfoFormat("Make screenshot: '{0}'", ConfigurationState.TakeScreenshot);
+            Log.InfoFormat("Maximize browser: '{0}'", ConfigurationState.MaximizeBrowser);
+            Log.InfoFormat("Recycle browser: '{0}'", ConfigurationState.RecycleBrowser);
+            Log.InfoFormat("Ajax wait interval: '{0}'", ConfigurationState.AjaxWaitInterval);
+            Log.InfoFormat("Ajax wait time: '{0}'", ConfigurationState.AjaxWaitTime);
+            Log.InfoFormat("JQuery url: '{0}'", ConfigurationState.JQueryUrl);
+            Log.InfoFormat("Date format: '{0}'", ConfigurationState.DateFormat);
+            Log.InfoFormat("Strip namespace: '{0}'", ConfigurationState.StripNamespace);
+            Log.Info("-----------------");
         }
 
         public static void AssemblyCleanup()

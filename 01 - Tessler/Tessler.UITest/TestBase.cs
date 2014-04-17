@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tessler.UITests.PageObjects;
 using InfoSupport.Tessler.Unity;
+using InfoSupport.Tessler.Drivers;
 
 namespace Tessler.UITest
 {
@@ -10,6 +11,7 @@ namespace Tessler.UITest
     {
         public HomePageObject TesslerToys { get; set; }
         public TestContext TestContext { get; set; }
+        public ITesslerWebDriver Driver { get; set; }
 
         [TestInitialize]
         public virtual void TestInitialize()
@@ -17,6 +19,7 @@ namespace Tessler.UITest
             TesslerState.TestInitialize(TestContext);
 
             TesslerToys = UnityInstance.Resolve<HomePageObject>();
+            Driver = TesslerState.GetWebDriver();
         }
 
         [TestMethod]

@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using InfoSupport.Tessler.Exceptions;
 
 namespace InfoSupport.Tessler.Drivers
 {
@@ -119,52 +120,68 @@ namespace InfoSupport.Tessler.Drivers
             Thread.Sleep(TimeSpan.FromSeconds(ConfigurationState.WaitTime));
         }
 
+        public bool IsJQueryLoaded
+        {
+            get
+            {
+                try
+                {
+                    var result = Js("return typeof(jQuery)");
+
+                    if (result.ToString() == "function") return true;
+                }
+                catch (Exception e)
+                {
+                    var message = string.Format("Error checking jQuery presence: {0}", e.Message);
+                    Log.Fatal(message);
+                    throw new TesslerWebDriverException(message);
+                }
+
+                return false;
+            }
+        }
+
         public void LoadJQuery()
         {
-            // Check if jQuery is already loaded
-            try
+            if (ConfigurationState.AutoLoadJQuery)
             {
-                var result = Js("return typeof(jQuery)");
+                // Check if jQuery is already loaded
+                if (IsJQueryLoaded) return;
 
-                if (result.ToString() == "function") return;
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                // Add a jQuery script element
+                StringBuilder js = new StringBuilder();
+
+                js.Append("var script = document.createElement('script');");
+                js.AppendFormat("script.src = '{0}';", ConfigurationState.JQueryUrl);
+                js.Append("script.type = 'text/javascript';");
+                js.Append("document.getElementsByTagName('head')[0].appendChild(script);");
+
+                Js(js.ToString());
+
+                // Check that we can now run jQuery functions
+                Retry.Create(() =>
+                {
+                    return IsJQueryLoaded;
+                })
+                .OnSuccess(() =>
+                {
+                    stopwatch.Stop();
+
+                    Log.InfoFormat("jQuery succesfully loaded in {0}ms", stopwatch.ElapsedMilliseconds);
+                })
+                .OnFail(() =>
+                {
+                    var message = "Could not manually load jQuery";
+                    Log.Fatal(message);
+                    throw new TesslerWebDriverException(message);
+                })
+                .SetInterval(TimeSpan.FromSeconds(0.2))
+                .SetTimeout(TimeSpan.FromSeconds(4))
+                .Start();
             }
-            catch (Exception e)
-            {
-                Log.WarnFormat("Error checking jQuery presence: {0}", e.Message);
-                return;
-            }
-
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            // Add a jQuery script element
-            StringBuilder js = new StringBuilder();
-
-            js.Append("var script = document.createElement('script');");
-            js.AppendFormat("script.src = '{0}';", ConfigurationState.JQueryUrl);
-            js.Append("script.type = 'text/javascript';");
-            js.Append("document.getElementsByTagName('head')[0].appendChild(script);");
-
-            Js(js.ToString());
-
-            // Check that we can now run jQuery functions
-            Retry.Create(() =>
-            {
-                return Js("return typeof(jQuery)").ToString() == "function";
-            })
-            .OnSuccess(() =>
-            {
-                stopwatch.Stop();
-
-                Log.InfoFormat("jQuery succesfully loaded in {0}ms", stopwatch.ElapsedMilliseconds);
-            })
-            .OnFail(() =>
-            {
-                Log.Warn("Could not manually load jQuery");
-            })
-            .SetInterval(TimeSpan.FromSeconds(0.2))
-            .SetTimeout(TimeSpan.FromSeconds(4))
-            .Start();
         }
 
         public object Js(string javascript)
@@ -244,6 +261,8 @@ namespace InfoSupport.Tessler.Drivers
         {
             try
             {
+                LoadJQuery();
+
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(ConfigurationState.FindElementTimeout));
 
                 var result = wait.Until(d => FindElements(by));

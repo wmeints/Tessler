@@ -61,7 +61,7 @@ namespace InfoSupport.Tessler.Unity
 
         private void HandleScreenshot(IMethodInvocation input, IMethodReturn result)
         {
-            if (ConfigurationState.MakeScreenshot == Configuration.TakeScreenshot.Always || ConfigurationState.MakeScreenshot == Configuration.TakeScreenshot.OnFail)
+            if (ConfigurationState.TakeScreenshot == Configuration.TakeScreenshot.Always || ConfigurationState.TakeScreenshot == Configuration.TakeScreenshot.OnFail)
             {
                 TestResult testResult = TestResult.Passed;
 

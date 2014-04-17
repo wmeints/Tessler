@@ -9,37 +9,57 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tessler.UITest
 {
     [TestClass]
-    public class DefectTest : TestBase
+    public class DefectTest// : TestBase
     {
-        [TestInitialize]
-        public override void TestInitialize()
-        {
-            base.TestInitialize();
+        //[TestInitialize]
+        //public override void TestInitialize()
+        //{
+        //    base.TestInitialize();
 
-            JQuery.By("a:contains('Tables')").Element().Click();
-        }
+        //    JQuery.By("a:contains('Tables')").Element().Click();
+        //}
+
+        //[TestMethod]
+        //public void EmptyTableTest()
+        //{
+        //    var rows = JQuery.By("#empty-table tbody").Elements();
+
+        //    Assert.AreEqual(0, rows.Count());
+        //}
+
+        //[TestMethod]
+        //public void OneElementTest()
+        //{
+        //    var rows = JQuery.By("#one-element").Elements();
+
+        //    Assert.AreEqual(1, rows.Count());
+
+        //    var row1 = rows.First();
+
+        //    Assert.IsTrue(row1.Text.Contains("40"));
+        //    Assert.IsTrue(row1.Text.Contains("First element"));
+        //    Assert.IsTrue(row1.Text.Contains("100,20"));
+        //    Assert.IsTrue(row1.Text.Contains("Yes"));
+        //}
+
+        public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public void EmptyTableTest()
+        public void Google_NoJQueryTest()
         {
-            var rows = JQuery.By("#empty-table tbody").Elements();
+            TesslerState.Configure()
+                .SetBrowser(InfoSupport.Tessler.Configuration.Browser.Chrome)
+                .SetWebsiteUrl("http://www.gmail.com")
+            ;
 
-            Assert.AreEqual(0, rows.Count());
-        }
+            TesslerState.TestInitialize(TestContext);
 
-        [TestMethod]
-        public void OneElementTest()
-        {
-            var rows = JQuery.By("#one-element").Elements();
+            var signIn = JQuery.By("#signIn").Element();
+            
+            Assert.IsNotNull(signIn);
+            Assert.AreEqual("Sign in", signIn.GetAttribute("value"));
 
-            Assert.AreEqual(1, rows.Count());
-
-            var row1 = rows.First();
-
-            Assert.IsTrue(row1.Text.Contains("40"));
-            Assert.IsTrue(row1.Text.Contains("First element"));
-            Assert.IsTrue(row1.Text.Contains("100,20"));
-            Assert.IsTrue(row1.Text.Contains("Yes"));
+            TesslerState.TestCleanup();
         }
     }
 }

@@ -72,7 +72,6 @@ namespace InfoSupport.Tessler
         
         internal static void InitializeStandAlone()
         {
-
             UnityInstance.Instance.AddNewExtension<UnityConfiguration>();
         }
     }

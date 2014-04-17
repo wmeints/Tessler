@@ -69,6 +69,8 @@ namespace InfoSupport.Tessler.Drivers
 
         #region Javascript
 
+        bool IsJQueryLoaded { get; }
+
         /// <summary>
         /// Checks if jQuery has been loaded and loads it if no version is available
         /// </summary>

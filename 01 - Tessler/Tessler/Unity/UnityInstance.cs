@@ -33,8 +33,6 @@ namespace InfoSupport.Tessler.Unity
         {
             if (!TesslerWebDriver.InhibitExecution)
             {
-                TesslerState.GetWebDriver().LoadJQuery();
-
                 TesslerState.GetWebDriver().WaitForAjax();
             }
 

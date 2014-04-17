@@ -1,6 +1,7 @@
 ﻿using System;
 using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Selenium;
+using Tessler.UITests.PageObjects.JQueryTests;
 
 namespace Tessler.UITests.PageObjects
 {
@@ -28,6 +29,13 @@ namespace Tessler.UITests.PageObjects
             action(JQuery.By("span.by-class").Element().Text);
 
             return ResolveSelf();
+        }
+
+        public NoJQueryPageObject ChooseNoJQuery()
+        {
+            JQuery.By("a:contains('No jQuery')").Element().Click();
+
+            return Resolve<NoJQueryPageObject>();
         }
     }
 }

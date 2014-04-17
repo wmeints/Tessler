@@ -76,7 +76,7 @@ namespace TesslerGeneratorProvider.Generator.SpecFlowPlugin
         private const string BROWSERPROFILE_ATTR = "InfoSupport.Tessler.Core.BrowserProfile";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TesslerMsTest2010GeneratorProvider"/> class.
+        /// Initializes a new instance of the <see cref="TesslerGeneratorProvider"/> class.
         /// </summary>
         /// <param name="codeDomHelper">The SpecFlow CodeDomHelper.</param>
         public TesslerGeneratorProvider(CodeDomHelper codeDomHelper)

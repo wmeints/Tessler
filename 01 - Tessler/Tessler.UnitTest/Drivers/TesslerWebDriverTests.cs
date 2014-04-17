@@ -44,6 +44,8 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             Verify.Fails.Clear();
             Verify.Failed = false;
+
+            TesslerState.Configure().RestoreState();
         }
 
         [TestMethod]
@@ -200,9 +202,20 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             webDriverMock.Setup(m => m.ExecuteScript(jsExec)).Returns(() => jsReturn);
 
-            driver.LoadJQuery();
+            var threwException = false;
 
-            logMock.Verify(m => m.Warn(It.Is<string>(a => a.Contains("Could not manually load jQuery"))), Times.Once());
+            try
+            {
+                driver.LoadJQuery();
+            }
+            catch (Exception)
+            {
+                threwException = true;
+            }
+
+            Assert.IsTrue(threwException);
+
+            logMock.Verify(m => m.Fatal(It.Is<string>(a => a.Contains("Could not manually load jQuery"))), Times.Once());
         }
 
         [TestMethod]
@@ -212,9 +225,20 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             webDriverMock.Setup(m => m.ExecuteScript(jsExec)).Throws<Exception>();
 
-            driver.LoadJQuery();
+            var threwException = false;
 
-            logMock.Verify(m => m.Warn(It.Is<string>(a => a.Contains("Error checking jQuery presence"))), Times.Once());
+            try
+            {
+                driver.LoadJQuery();
+            }
+            catch (Exception)
+            {
+                threwException = true;
+            }
+
+            Assert.IsTrue(threwException);
+
+            logMock.Verify(m => m.Fatal(It.Is<string>(a => a.Contains("Error checking jQuery presence"))), Times.Once());
         }
 
         [TestMethod]
@@ -344,6 +368,8 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
         [TestMethod]
         public void WaitForTest()
         {
+            TesslerState.Configure().SetAutoLoadJQuery(false);
+
             var expected = new List<IWebElement>()
             {
                 new Mock<IWebElement>().Object
@@ -359,6 +385,10 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
         [TestMethod]
         public void WaitForNotFoundTest()
         {
+            TesslerState.Configure()
+                .SetAutoLoadJQuery(false)
+            ;
+
             webDriverMock.Setup(m => m.ExecuteScript(It.IsAny<string>())).Returns(null);
 
             var actual = driver.WaitFor(JQuery.By(""));

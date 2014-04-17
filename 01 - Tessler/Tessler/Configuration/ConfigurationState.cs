@@ -1,50 +1,172 @@
 ﻿using InfoSupport.Tessler.Adapters.Ajax;
+using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
 using Microsoft.Practices.Unity;
+using System;
 
 namespace InfoSupport.Tessler.Configuration
 {
     public class ConfigurationState : FluentObject
     {
-        internal static float AjaxWaitInterval = TesslerConfiguration.AjaxWaitInterval();
+        public static float AjaxWaitInterval { get { return _AjaxWaitInterval; } }
+        internal static float _AjaxWaitInterval;
+        internal static float _AjaxWaitIntervalShadow;
 
-        internal static float AjaxWaitTime = TesslerConfiguration.AjaxWaitTime();
+        public static float AjaxWaitTime { get { return _AjaxWaitTime; } }
+        internal static float _AjaxWaitTime;
+        internal static float _AjaxWaitTimeShadow;
 
-        internal static Browser Browser = TesslerConfiguration.Browser();
+        public static bool AutoLoadJQuery { get { return _AutoLoadJQuery; } }
+        internal static bool _AutoLoadJQuery;
+        internal static bool _AutoLoadJQueryShadow;
 
-        internal static string BrowserProfile = TesslerConfiguration.BrowserProfile();
+        public static Browser Browser { get { return _Browser; } }
+        internal static Browser _Browser;
+        internal static Browser _BrowserShadow;
 
-        internal static string DateFormat = TesslerConfiguration.DateFormat();
+        public static string BrowserProfile { get { return _BrowserProfile; } }
+        internal static string _BrowserProfile;
+        internal static string _BrowserProfileShadow;
 
-        internal static float FindElementTimeout = TesslerConfiguration.FindElementTimeout();
+        public static string DateFormat { get { return _DateFormat; } }
+        internal static string _DateFormat;
+        internal static string _DateFormatShadow;
 
-        internal static string JQueryUrl = TesslerConfiguration.JQueryUrl();
+        public static float FindElementTimeout { get { return _FindElementTimeout; } }
+        internal static float _FindElementTimeout;
+        internal static float _FindElementTimeoutShadow;
 
-        internal static TakeScreenshot MakeScreenshot = TesslerConfiguration.TakeScreenshot();
+        public static string JQueryUrl { get { return _JQueryUrl; } }
+        internal static string _JQueryUrl;
+        internal static string _JQueryUrlShadow;
 
-        internal static bool MaximizeBrowser = TesslerConfiguration.MaximizeBrowser();
+        public static TakeScreenshot TakeScreenshot { get { return _TakeScreenshot; } }
+        internal static TakeScreenshot _TakeScreenshot;
+        internal static TakeScreenshot _TakeScreenshotShadow;
 
-        internal static float NotVisibleWaitTime = TesslerConfiguration.NotVisibleWaitTime();
+        public static bool MaximizeBrowser { get { return _MaximizeBrowser; } }
+        internal static bool _MaximizeBrowser;
+        internal static bool _MaximizeBrowserShadow;
 
-        internal static bool RecycleBrowser = TesslerConfiguration.RecycleBrowser();
+        public static float NotVisibleWaitTime { get { return _NotVisibleWaitTime; } }
+        internal static float _NotVisibleWaitTime;
+        internal static float _NotVisibleWaitTimeShadow;
 
-        internal static bool ResetDatabase = TesslerConfiguration.ResetDatabase();
+        public static bool RecycleBrowser { get { return _RecycleBrowser; } }
+        internal static bool _RecycleBrowser;
+        internal static bool _RecycleBrowserShadow;
 
-        internal static string ScreenshotsPath = TesslerConfiguration.ScreenshotsPath();
+        public static bool ResetDatabase { get { return _ResetDatabase; } }
+        internal static bool _ResetDatabase;
+        internal static bool _ResetDatabaseShadow;
 
-        internal static string StripNamespace = TesslerConfiguration.StripNamespace();
+        public static string ScreenshotsPath { get { return _ScreenshotsPath; } }
+        internal static string _ScreenshotsPath;
+        internal static string _ScreenshotsPathShadow;
 
-        internal static float WaitTime = TesslerConfiguration.PauseWaitTime();
+        public static string StripNamespace { get { return _StripNamespace; } }
+        internal static string _StripNamespace;
+        internal static string _StripNamespaceShadow;
 
-        internal static string WebsiteUrl = TesslerConfiguration.WebsiteUrl();
+        public static float WaitTime { get { return _WaitTime; } }
+        internal static float _WaitTime;
+        internal static float _WaitTimeShadow;
+
+        public static string WebsiteUrl { get { return _WebsiteUrl; } }
+        internal static string _WebsiteUrl;
+        internal static string _WebsiteUrlShadow;
+
+        static ConfigurationState()
+        {
+            TesslerState.Configure()
+                .LoadFromAppConfig()
+                .SaveState()
+            ; // Save the state as read from the configuration file
+        }
+
+        public ConfigurationState LoadFromAppConfig()
+        {
+            SetAjaxWaitInterval(TesslerConfiguration.AjaxWaitInterval());
+            SetAjaxWaitTime(TesslerConfiguration.AjaxWaitTime());
+            SetAutoLoadJQuery(TesslerConfiguration.AutoLoadJQuery());
+            SetBrowser(TesslerConfiguration.Browser());
+            SetBrowserProfile(TesslerConfiguration.BrowserProfile());
+            SetDateFormat(TesslerConfiguration.DateFormat());
+            SetFindElementTimeout(TesslerConfiguration.FindElementTimeout());
+            SetJQueryUrl(TesslerConfiguration.JQueryUrl());
+            SetMaximizeBrowser(TesslerConfiguration.MaximizeBrowser());
+            SetNotVisibleWaitTime(TesslerConfiguration.NotVisibleWaitTime());
+            SetRecycleBrowser(TesslerConfiguration.RecycleBrowser());
+            SetResetDatabase(TesslerConfiguration.ResetDatabase());
+            SetScreenshotsPath(TesslerConfiguration.ScreenshotsPath());
+            SetStripNamespace(TesslerConfiguration.StripNamespace());
+            SetTakeScreenshot(TesslerConfiguration.TakeScreenshot());
+            SetWaitTime(TesslerConfiguration.PauseWaitTime());
+            SetWebsiteUrl(TesslerConfiguration.WebsiteUrl());
+
+            return this;
+        }
+
+        /// <summary>
+        /// Saves a shadow-copy of the current configuration state
+        /// </summary>
+        public ConfigurationState SaveState()
+        {
+            _AjaxWaitIntervalShadow = AjaxWaitInterval;
+            _AjaxWaitTimeShadow = AjaxWaitTime;
+            _AutoLoadJQueryShadow = AutoLoadJQuery;
+            _BrowserShadow = Browser;
+            _BrowserProfileShadow = BrowserProfile;
+            _DateFormatShadow = DateFormat;
+            _FindElementTimeoutShadow = FindElementTimeout;
+            _JQueryUrlShadow = JQueryUrl;
+            _TakeScreenshotShadow = TakeScreenshot;
+            _MaximizeBrowserShadow = MaximizeBrowser;
+            _NotVisibleWaitTimeShadow = NotVisibleWaitTime;
+            _RecycleBrowserShadow = RecycleBrowser;
+            _ResetDatabaseShadow = ResetDatabase;
+            _ScreenshotsPathShadow = ScreenshotsPath;
+            _StripNamespaceShadow = StripNamespace;
+            _WaitTimeShadow = WaitTime;
+            _WebsiteUrlShadow = WebsiteUrl;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Restores the shadow-copy of a previously saved configuration state
+        /// This automatically runs after each TesslerState.TestInitialize
+        /// </summary>
+        public ConfigurationState RestoreState()
+        {
+            _AjaxWaitInterval = _AjaxWaitIntervalShadow;
+            _AjaxWaitTime = _AjaxWaitTimeShadow;
+            _AutoLoadJQuery = _AutoLoadJQueryShadow;
+            _Browser = _BrowserShadow;
+            _BrowserProfile = _BrowserProfileShadow;
+            _DateFormat = _DateFormatShadow;
+            _FindElementTimeout = _FindElementTimeoutShadow;
+            _JQueryUrl = _JQueryUrlShadow;
+            _TakeScreenshot = _TakeScreenshotShadow;
+            _MaximizeBrowser = _MaximizeBrowserShadow;
+            _NotVisibleWaitTime = _NotVisibleWaitTimeShadow;
+            _RecycleBrowser = _RecycleBrowserShadow;
+            _ResetDatabase = _ResetDatabaseShadow;
+            _ScreenshotsPath = _ScreenshotsPathShadow;
+            _StripNamespace = _StripNamespaceShadow;
+            _WaitTime = _WaitTimeShadow;
+            _WebsiteUrl = _WebsiteUrlShadow;
+
+            return this;
+        }
 
         /// <summary>
         /// How long to wait before trying again while waiting for ajax operations to complete
         /// </summary>
         public ConfigurationState SetAjaxWaitInterval(float interval)
         {
-            AjaxWaitInterval = interval;
+            _AjaxWaitInterval = interval;
 
             return this;
         }
@@ -54,7 +176,17 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetAjaxWaitTime(float time)
         {
-            AjaxWaitTime = time;
+            _AjaxWaitTime = time;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Whether jQuery should automatically be loaded if it is not available
+        /// </summary>
+        public ConfigurationState SetAutoLoadJQuery(bool autoLoad)
+        {
+            _AutoLoadJQuery = autoLoad;
 
             return this;
         }
@@ -64,7 +196,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetBrowser(Browser browser)
         {
-            Browser = browser;
+            _Browser = browser;
 
             return this;
         }
@@ -74,7 +206,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetBrowserProfile(string browserProfileName)
         {
-            BrowserProfile = browserProfileName;
+            _BrowserProfile = browserProfileName;
 
             return this;
         }
@@ -84,7 +216,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetDateFormat(string format)
         {
-            DateFormat = format;
+            _DateFormat = format;
 
             return this;
         }
@@ -94,7 +226,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetFindElementTimeout(float timeout)
         {
-            FindElementTimeout = timeout;
+            _FindElementTimeout = timeout;
 
             return this;
         }
@@ -104,7 +236,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetJQueryUrl(string url)
         {
-            JQueryUrl = url;
+            _JQueryUrl = url;
 
             return this;
         }
@@ -113,10 +245,10 @@ namespace InfoSupport.Tessler.Configuration
         /// The javascript adapter to use for polling ajax requests
         /// </summary>
         /// <returns></returns>
-        public ConfigurationState SetJavascriptAdapter<TStatusAdapter>()
-            where TStatusAdapter : IJavascriptAdapter
+        public ConfigurationState SetJavascriptAdapter<TJavascriptAdapter>()
+            where TJavascriptAdapter : IJavascriptAdapter
         {
-            UnityInstance.Instance.RegisterType<IJavascriptAdapter, TStatusAdapter>();
+            UnityInstance.Instance.RegisterType<IJavascriptAdapter, TJavascriptAdapter>();
 
             return this;
         }
@@ -124,9 +256,9 @@ namespace InfoSupport.Tessler.Configuration
         /// <summary>
         /// When to make a screenshot, can be one of the following: Always, Never, OnFail
         /// </summary>
-        public ConfigurationState SetMakeScreenshot(TakeScreenshot makeScreenshot)
+        public ConfigurationState SetTakeScreenshot(TakeScreenshot takeScreenshot)
         {
-            MakeScreenshot = makeScreenshot;
+            _TakeScreenshot = takeScreenshot;
 
             return this;
         }
@@ -136,7 +268,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetMaximizeBrowser(bool maximize)
         {
-            MaximizeBrowser = maximize;
+            _MaximizeBrowser = maximize;
 
             return this;
         }
@@ -146,7 +278,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetNotVisibleWaitTime(float time)
         {
-            NotVisibleWaitTime = time;
+            _NotVisibleWaitTime = time;
 
             return this;
         }
@@ -156,7 +288,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetRecycleBrowser(bool recycle)
         {
-            RecycleBrowser = recycle;
+            _RecycleBrowser = recycle;
 
             return this;
         }
@@ -166,7 +298,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetResetDatabase(bool reset)
         {
-            RecycleBrowser = reset;
+            _ResetDatabase = reset;
 
             return this;
         }
@@ -176,7 +308,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetScreenshotsPath(string path)
         {
-            ScreenshotsPath = path;
+            _ScreenshotsPath = path;
 
             return this;
         }
@@ -186,7 +318,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetStripNamespace(string stripNamespace)
         {
-            StripNamespace = stripNamespace;
+            _StripNamespace = stripNamespace;
 
             return this;
         }
@@ -196,7 +328,7 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetWaitTime(float time)
         {
-            WaitTime = time;
+            _WaitTime = time;
 
             return this;
         }
@@ -206,11 +338,9 @@ namespace InfoSupport.Tessler.Configuration
         /// </summary>
         public ConfigurationState SetWebsiteUrl(string url)
         {
-            WebsiteUrl = url;
+            _WebsiteUrl = url;
 
             return this;
         }
-
-        
     }
 }
