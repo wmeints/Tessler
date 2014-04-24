@@ -38,7 +38,7 @@
   <ItemGroup>
     <Reference Include="InfoSupport.Tessler, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>S:\Deliverables\InfoSupport.Tessler\bin\InfoSupport.Tessler.dll</HintPath>
+      <HintPath>..\..\01 - Tessler\Tessler\bin\Debug\InfoSupport.Tessler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
