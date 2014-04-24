@@ -1,7 +1,7 @@
 ﻿using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PageObjects;
+using Tessler.UITests.PageObjects;
 
 namespace TesslerToysUITests
 {

@@ -71,10 +71,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PageFlows\PageFlows.csproj">
-      <Project>{c7e2398d-3d5b-447a-972b-8edd1c7a15b7}</Project>
-      <Name>PageFlows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PageObjects\PageObjects.csproj">
       <Project>{ea2cef8b-5f0b-431e-858d-f21480d40de7}</Project>
       <Name>PageObjects</Name>

@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using InfoSupport.Tessler.Core;
-using PageObjects;
+using Tessler.UITests.PageObjects;
 
 namespace TesslerToysUITests
 {
