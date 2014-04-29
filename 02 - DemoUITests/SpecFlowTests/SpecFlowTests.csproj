@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0BB3A14C-1AA7-492F-83E0-6F80228CA356}</ProjectGuid>
+    <ProjectGuid>{6EDCF597-6024-45C2-887B-77D266FE9653}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tessler.UITest</RootNamespace>
-    <AssemblyName>Tessler.UITest</AssemblyName>
+    <RootNamespace>SpecFlowTests</RootNamespace>
+    <AssemblyName>SpecFlowTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,9 +16,6 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,7 +35,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="InfoSupport.Tessler">
+      <HintPath>..\..\..\..\Source\Repos\Tessler\01 - Tessler\Tessler\bin\Release\InfoSupport.Tessler.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="TesslerGeneratorProvider.Generator.SpecFlowPlugin">
+      <HintPath>..\..\..\..\Source\Repos\Tessler\01 - Tessler\Tessler.SpecFlow\bin\Release\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -53,35 +62,29 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AssemblyInitializer.cs" />
-    <Compile Include="PageObjects\AjaxPageObject.cs" />
-    <Compile Include="PageObjects\BasePageObject.cs" />
-    <Compile Include="PageObjects\FormsPageObject.cs" />
-    <Compile Include="PageObjects\HomePageObject.cs" />
-    <Compile Include="PageObjects\JQueryPageObject.cs" />
-    <Compile Include="PageObjects\JQueryTests\NoJQueryPageObject.cs" />
-    <Compile Include="PageObjects\PopupsPageObject.cs" />
-    <Compile Include="PageObjects\SpecialCasesPageObject.cs" />
-    <Compile Include="PageObjects\TablesPageObject.cs" />
-    <Compile Include="PageObjects\WhitePageObject.cs" />
-    <Compile Include="TestBase.cs" />
-    <Compile Include="DefectTest.cs" />
+    <Compile Include="FormsTest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormsTest.feature</DependentUpon>
+    </Compile>
+    <Compile Include="FormsTestSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FormsTest.cs" />
-    <Compile Include="JQueryTest.cs" />
-    <Compile Include="TablesTest.cs" />
-    <Compile Include="NoJQueryTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tessler\Tessler.csproj">
-      <Project>{2dfcd0e0-0e4c-41cc-81ce-1d54c3fa00dc}</Project>
-      <Name>Tessler</Name>
-    </ProjectReference>
+    <Compile Include="TesslerHooks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FormsTest.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FormsTest.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PageObjects\PageObjects.csproj">
+      <Project>{ea2cef8b-5f0b-431e-858d-f21480d40de7}</Project>
+      <Name>PageObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
@@ -102,7 +105,6 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
