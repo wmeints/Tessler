@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Tessler</id>
+    <version>1.0.0</version>
+    <authors>Info Support</authors>
+    <owners>Info Support</owners>
+    <!--<licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>-->
+    <projectUrl>http://tessler.flyingpie.nl/docs</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Tessler UI Testing Framework</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>UI Test</tags>
+    <dependencies>
+	  <dependency id="log4net" version="2.0.3" />
+	  <dependency id="Moq" version="4.2.1402.2112" />
+      <dependency id="Selenium.WebDriver" version="2.41.0" />
+	  <dependency id="Selenium.Support" version="2.41.0" />
+	  <dependency id="Unity" version="2.1.505.2" />
+	  <dependency id="Unity.Interception" version="2.1.505.2" />
+    </dependencies>
+  </metadata>
+</package>
