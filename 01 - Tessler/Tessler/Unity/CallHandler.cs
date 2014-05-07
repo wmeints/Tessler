@@ -34,8 +34,6 @@ namespace InfoSupport.Tessler.Unity
 
             TesslerObject po = input.Target as TesslerObject;
 
-            JQueryScriptExtensions.LoadExtensions();
-
             if (!TesslerWebDriver.InhibitExecution)
             {
                 po.FireOnCalling();

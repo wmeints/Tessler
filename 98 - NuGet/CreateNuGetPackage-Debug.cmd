@@ -1,1 +1,1 @@
-powershell ./CreateNuGetPackage.ps1 -skipBuild -skipUnitTests -skipUITests -skipNuGetPackage -verbose -autoExit
+powershell ./CreateNuGetPackage.ps1 -skipBuild -skipUnitTests -skipUITests -verbose

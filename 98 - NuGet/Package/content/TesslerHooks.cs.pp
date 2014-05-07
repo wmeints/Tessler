@@ -1,18 +1,19 @@
-﻿using InfoSupport.Tessler.Core;
+using InfoSupport.Tessler.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tessler.UITests.PageObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace Tessler.UITest
+namespace $rootnamespace$
 {
     [TestClass]
-    public static class AssemblyInitializer
+    public class TesslerHooks
     {
         [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
+        public static void AssemblyInitialize(TestContext context)
         {
             TesslerState.AssemblyInitialize();
-
-            TesslerState.RegisterPageObjectsInAssembly(typeof(AjaxPageObject).Assembly);
         }
 
         [AssemblyCleanup]

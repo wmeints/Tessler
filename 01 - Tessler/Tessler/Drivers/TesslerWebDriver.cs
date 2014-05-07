@@ -262,6 +262,7 @@ namespace InfoSupport.Tessler.Drivers
             try
             {
                 LoadJQuery();
+                JQueryScriptExtensions.LoadExtensions();
 
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(ConfigurationState.FindElementTimeout));
 

@@ -183,6 +183,9 @@
     <None Include="S:\SupportFiles\FxCop\tessler.ruleset">
       <Link>tessler.ruleset</Link>
     </None>
+    <None Include="Merge.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RestoreFromSnapshotQuery.txt" />
@@ -199,6 +202,9 @@
     <Content Include="S:\SupportFiles\FxCop\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </Content>
+    <Content Include="ILRepack.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -209,6 +215,13 @@
     <IEDriverInitScriptPath>$(IEDriverToolsPath)Init.ps1</IEDriverInitScriptPath>
     <IEDriverPath>$(IEDriverInstallPath)content\IEDriverServer.exe</IEDriverPath>
     <PowerShellExe Condition="'$(PowerShellExe)'==''">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>call "$(TargetDir)Merge.cmd"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="DownloadIEDriver" Label="DownloadIEDriverBuildTask">
     <Exec Condition="!Exists('$(IEDriverPath)')" Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;'$(IEDriverInitScriptPath)' '$(IEDriverInstallPath)' '$(IEDriverToolsPath)'} &quot;" />

@@ -44,9 +44,7 @@ namespace InfoSupport.Tessler
             // Register Page objects
             GetAllPageObjects().ToList().ForEach(po =>
             {
-                Container.RegisterType(po, new ContainerControlledLifetimeManager());
-
-                Container.Configure<Interception>().SetInterceptorFor(po, new TransparentProxyInterceptor());
+                TesslerState.RegisterPageObject(po);
             });
 
             JQueryScriptExtensions.Add("jQuery.expr[':'].equals = function(a, i, m) { var $a = $(a); return ($a.text() == m[3]); }");
@@ -62,8 +60,9 @@ namespace InfoSupport.Tessler
             var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
             var toLoad = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
             toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
-            
+
             return loadedAssemblies
+                .Where(a => a.FullName.IndexOf("PageObject", StringComparison.OrdinalIgnoreCase) != -1)
                 .Where(a => a.GetReferencedAssemblies().Any(r => r.ToString() == currentAssembly.GetName().ToString()))
                 .SelectMany(a => a.GetTypes())
                 .Where(a => a.IsSubclassOf(typeof(TesslerObject)))

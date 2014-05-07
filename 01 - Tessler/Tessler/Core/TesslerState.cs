@@ -9,6 +9,8 @@ using InfoSupport.Tessler.Screenshots;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.InterceptionExtension;
 
 namespace InfoSupport.Tessler.Core
 {
@@ -169,6 +171,27 @@ namespace InfoSupport.Tessler.Core
             {
                 GetWebDriver().Close();
             }
+        }
+
+        public static void RegisterPageObject<TPageObject>()
+        {
+            RegisterPageObject(typeof(TPageObject));
+        }
+
+        public static void RegisterPageObject(Type po)
+        {
+            UnityInstance.Instance.RegisterType(po, new ContainerControlledLifetimeManager());
+
+            UnityInstance.Instance.Configure<Interception>().SetInterceptorFor(po, new TransparentProxyInterceptor());
+        }
+
+        public static void RegisterPageObjectsInAssembly(Assembly assembly)
+        {
+            assembly
+                .GetTypes()
+                .Where(a => a.IsSubclassOf(typeof(TesslerObject)))
+                .ForEach(t => RegisterPageObject(t))
+            ;
         }
 
         private static void ResetDatabases()

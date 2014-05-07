@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Tessler</id>
+    <id>Tessler.SpecFlow</id>
     <version>1.0.0</version>
     <authors>Info Support</authors>
     <owners>Info Support</owners>
@@ -13,17 +13,14 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>UI Test</tags>
-    <!--<dependencies>
-	  <dependency id="log4net" version="2.0.3" />
-	  <dependency id="Moq" version="4.2.1402.2112" />
-      <dependency id="Selenium.WebDriver" version="2.41.0" />
-	  <dependency id="Selenium.Support" version="2.41.0" />
-	  <dependency id="Unity" version="2.1.505.2" />
-	  <dependency id="Unity.Interception" version="2.1.505.2" />
-    </dependencies>-->
+    <dependencies>
+      <dependency id="SpecFlow" version="1.9.0" />
+	  <dependency id="Tessler" version="1.0.1.1" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="01 - Tessler\Tessler\bin\Release\Merged\InfoSupport.Tessler.dll" target="lib\net40\InfoSupport.Tessler.dll" />
-    <file src="98 - NuGet\Package\content\app.config.transform" target="content" />
+    <file src="01 - Tessler\Tessler.SpecFlow\bin\Release\Merged\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll" target="lib\net40\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll" />
+    <file src="98 - NuGet\Package\content\specflow.app.config.transform" target="content\app.config.transform" />
+    <file src="98 - NuGet\Package\content\TesslerHooks.cs.pp" target="content" />
 </files>
 </package>
