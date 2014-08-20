@@ -1,0 +1,20 @@
+{
+	"title": "Tessler UI Automation",
+	"tagline": "Tessler UI Automation Library",
+	"image": "http://static.tumblr.com/3aa76e0661607c9cbc978995831143fa/9czsl3o/e9cmlsw1y/tumblr_static_tumblr.jpg",
+	"theme": "daux-navy",
+	"toggle_code": true,
+	"breadcrumbs": true,
+	"breadcrumb_separator": "Chevrons",
+	"date_modified": true,
+    "file_editor": true,
+	"repo": "",
+	"ignore": {
+	        "files": ["Work_In_Progress.md"],
+	        "folders": ["98_Examples","99_More_Examples"]
+    },
+	"links": {
+		"Download": "https://github.com/justinwalsh/daux.io/archive/master.zip",
+		"GitHub Repo": "https://github.com/justinwalsh/daux.io"
+	}
+}
