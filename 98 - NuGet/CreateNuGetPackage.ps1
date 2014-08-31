@@ -92,6 +92,22 @@ if ($skipNuGetPackage -ne $true) {
 	& $nuget Pack "Package\tessler.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	& $nuget Pack "Package\tessler.specflow.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	CheckExitCode "NuGet Pack"
+	
+	$doPublish = Read-Host "Publish to NuGet.org? (y/N)"
+		
+	if ($doPublish -eq "y")
+	{
+		#$apiKey = Get-Content $apikeyfile
+		
+		& $nuget SetApiKey "b21a1f7a-bde6-341c-a0dc-885f8fb4bc91"
+		
+		& $nuget Push "$releasefolder\Storm.$version.nupkg"
+		& $nuget Push "$releasefolder\Storm.Dapper.$version.nupkg"
+
+		CheckExitCode "NuGet Push"
+	} else {
+		Write-Host "Skipping publishment to NuGet.org"
+	}
 } else {
 	Write-Host "Skipping creation of NuGet package" -f yellow
 }

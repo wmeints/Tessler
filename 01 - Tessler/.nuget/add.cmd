@@ -1,0 +1,1 @@
+nuget.exe sources Add  -Name "IS-Tessler" -Source "https://repoj.rhea.infosupport.net/nexus/service/local/nuget/project-IS-Tessler/" -UserName "marcoo" -Password "a"
