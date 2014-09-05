@@ -1,1 +1,1 @@
-powershell ./CreateNuGetPackage.ps1 | wtee log.txt
+powershell ./CreateNuGetPackage.ps1 | wtee CreateNuGetPackage.log
