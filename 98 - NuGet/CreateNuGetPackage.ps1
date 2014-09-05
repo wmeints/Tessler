@@ -23,6 +23,7 @@ $root = (Get-Item $here).Parent.FullName
 $unittestdll = "..\01 - Tessler\Tessler.UnitTest\bin\Release\InfoSupport.Tessler.UnitTest.dll"
 $uitestdll = "..\01 - Tessler\Tessler.UITest\bin\Release\Tessler.UITest.dll"
 $versionfile = "version.txt"
+$releasefolder = "Release"
 
 $binaries = @{
 	#"..\01 - Tessler\Tessler\bin\Release\InfoSupport.Tessler.dll" = "Package\lib\InfoSupport.Tessler.dll"
@@ -32,6 +33,17 @@ $binaries = @{
 CheckFile $msbuild
 CheckFile $vstest
 CheckFile $nuget
+
+# Set version
+if (Test-Path $versionfile) {
+	$version = Get-Content $versionfile
+	Write-Host "Version file found, using $version" -f yellow
+} else {
+	Write-Host "No version file found, using 1.0.0" -f yellow
+	$version = "1.0.0"
+}
+
+. ".\Version.ps1" $version
 
 if ($skipBuild -ne $true) {
 	Green "Building Tessler..."
@@ -82,13 +94,6 @@ if ($skipNuGetPackage -ne $true) {
 	& $nuget Update -self
 	CheckExitCode "NuGet Update"
 	
-	if (Test-Path $versionfile) {
-		$version = Get-Content $versionfile
-	} else {
-		Write-Host "No version file found, using 1.0.0" -f yellow
-		$version = "1.0.0"
-	}
-	
 	& $nuget Pack "Package\tessler.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	& $nuget Pack "Package\tessler.specflow.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	CheckExitCode "NuGet Pack"
@@ -98,11 +103,12 @@ if ($skipNuGetPackage -ne $true) {
 	if ($doPublish -eq "y")
 	{
 		#$apiKey = Get-Content $apikeyfile
+		$nugetUrl = "https://repoj.rhea.infosupport.net/nexus/service/local/nuget/project-IS-Tessler/"
 		
-		& $nuget SetApiKey "b21a1f7a-bde6-341c-a0dc-885f8fb4bc91"
+		& $nuget SetApiKey "b21a1f7a-bde6-341c-a0dc-885f8fb4bc91" -Source $nugetUrl
 		
-		& $nuget Push "$releasefolder\Storm.$version.nupkg"
-		& $nuget Push "$releasefolder\Storm.Dapper.$version.nupkg"
+		& $nuget Push "$releasefolder\Tessler.$version.nupkg" -s $nugetUrl
+		& $nuget Push "$releasefolder\Tessler.SpecFlow.$version.nupkg" -s $nugetUrl
 
 		CheckExitCode "NuGet Push"
 	} else {
