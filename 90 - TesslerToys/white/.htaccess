@@ -1,0 +1,5 @@
+AuthUserFile /home/workspace/tessler.flyingpie.nl/tesslertoys/white/.htpasswd
+AuthName "Authentication Required Now"
+AuthType Basic
+
+require valid-user
