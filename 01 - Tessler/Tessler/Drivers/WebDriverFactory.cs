@@ -21,7 +21,9 @@ namespace InfoSupport.Tessler.Drivers
                 case Browser.Chrome:
                     string chromeDriverFolder = UnpackDriver("chromedriver.exe", Resources.ChromeDriver);
 
-                    return new ChromeDriver(chromeDriverFolder);
+                    var options = new ChromeOptions();
+                    options.AddArgument("test-type");
+                    return new ChromeDriver(chromeDriverFolder, options);
 
                 case Browser.Firefox:
                     if (!string.IsNullOrEmpty(TesslerState.CurrentBrowserProfile))
@@ -64,7 +66,8 @@ namespace InfoSupport.Tessler.Drivers
             }
             catch (Exception e)
             {
-                throw new FileLoadException(string.Format("Could not deploy the driver '{0}', maybe the driver is still running?", binaryName), e);
+                //throw new FileLoadException(string.Format("Could not deploy the driver '{0}', maybe the driver is still running?", binaryName), e);
+                Log.WarnFormat("Could not deploy the driver '{0}', maybe the driver is still running? Using the existing driver.", binaryName);
             }
 
             return tempFolder;
