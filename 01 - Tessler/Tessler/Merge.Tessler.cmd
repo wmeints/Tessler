@@ -1,7 +1,8 @@
-REM Create a single dll to add in the NuGet package
+ECHO Create a single dll to add in the NuGet package
 
-rmdir /s /q "Merged"
+IF EXIST "Merged" rmdir /s /q "Merged"
 mkdir "Merged"
+
 ILRepack.exe /target:library /out:"Merged\InfoSupport.Tessler.dll" ^
  InfoSupport.Tessler.dll ^
  log4net.dll ^
