@@ -182,7 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Merge.cmd">
+    <None Include="Merge.Tessler.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -209,7 +209,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>call "$(TargetDir)Merge.cmd"</PostBuildEvent>
+    <PostBuildEvent>call "$(TargetDir)Merge.Tessler.cmd"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Label="DownloadIEDriverBuildTask">
     <CoreBuildDependsOn>DownloadIEDriver;$(CoreBuildDependsOn)</CoreBuildDependsOn>
