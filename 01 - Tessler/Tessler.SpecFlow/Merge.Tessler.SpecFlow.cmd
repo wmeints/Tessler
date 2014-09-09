@@ -1,9 +1,9 @@
 ECHO Create a single dll to add in the NuGet package
 
-IF EXIST "Merged" rmdir /s /q "Merged"
-mkdir "Merged"
+IF EXIST "SpecFlow.Merged" rmdir /s /q "SpecFlow.Merged"
+mkdir "SpecFlow.Merged"
 
-ILRepack.exe /target:library /out:"Merged\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll" ^
+ILRepack.exe /target:library /out:"SpecFlow.Merged\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll" ^
  TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll ^
  TechTalk.SpecFlow.Generator.dll ^
  TechTalk.SpecFlow.Parser.dll ^
