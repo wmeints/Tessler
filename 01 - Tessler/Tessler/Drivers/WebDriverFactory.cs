@@ -8,6 +8,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.PhantomJS;
 
 namespace InfoSupport.Tessler.Drivers
 {
@@ -19,13 +20,15 @@ namespace InfoSupport.Tessler.Drivers
             switch (ConfigurationState.Browser)
             {
                 case Browser.Chrome:
+                {
                     string chromeDriverFolder = UnpackDriver("chromedriver.exe", Resources.ChromeDriver);
 
                     var options = new ChromeOptions();
                     options.AddArgument("test-type");
                     return new ChromeDriver(chromeDriverFolder, options);
-
+                }
                 case Browser.Firefox:
+                {
                     if (!string.IsNullOrEmpty(TesslerState.CurrentBrowserProfile))
                     {
                         FirefoxProfileManager profileManager = new FirefoxProfileManager();
@@ -38,15 +41,28 @@ namespace InfoSupport.Tessler.Drivers
                     capabilities.SetCapability(CapabilityType.AcceptSslCertificates, true);
 
                     return new FirefoxDriver(capabilities);
+                }
                 case Browser.InternetExplorer:
+                {
                     string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
 
                     return new InternetExplorerDriver(ieDriverFolder);
+                }
+                case Browser.PhantomJS:
+                {
+                    var driverFolder = UnpackDriver("phantomjs.exe", Resources.phantomjs);
+                    var options = new PhantomJSOptions();
+                    var driver = new PhantomJSDriver(driverFolder, options);
+                    driver.Manage().Window.Size = new System.Drawing.Size(1280, 1024);
+                    return driver;
+                }
                 default:
+                {
                     string message = string.Format("Error while building webdriver.");
 
                     Log.Fatal(message);
                     throw new Exception(message);
+                }
             }
         }
 

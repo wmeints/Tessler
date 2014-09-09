@@ -124,6 +124,9 @@
   <data name="IEDriverServer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\packages\Selenium.WebDriver.IEDriver.2.42.0.0\content\IEDriverServer.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="phantomjs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\packages\PhantomJS.1.9.7\tools\phantomjs\phantomjs.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="RestoreFromSnapshotQuery" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\RestoreFromSnapshotQuery.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

@@ -48,7 +48,7 @@ namespace Tessler.UITest
         public void Google_NoJQueryTest()
         {
             TesslerState.Configure()
-                .SetBrowser(InfoSupport.Tessler.Configuration.Browser.Chrome)
+                //.SetBrowser(InfoSupport.Tessler.Configuration.Browser.Chrome)
                 .SetWebsiteUrl("http://www.gmail.com")
             ;
 
