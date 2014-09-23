@@ -1,10 +1,10 @@
 ﻿using InfoSupport.Tessler.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tessler.UITests.PageObjects;
+using InfoSupport.Tessler.UITests.PageObjects;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Drivers;
 
-namespace Tessler.UITest
+namespace InfoSupport.Tessler.UITest
 {
     [TestClass]
     public abstract class TestBase

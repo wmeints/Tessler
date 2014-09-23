@@ -4,7 +4,7 @@ using System;
 using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Selenium;
 
-namespace Tessler.UITests.PageObjects
+namespace InfoSupport.Tessler.UITests.PageObjects
 {
     /// <summary>
     /// Dit page object stelt de home pagina voor, met een paar knoppen en een tabel.

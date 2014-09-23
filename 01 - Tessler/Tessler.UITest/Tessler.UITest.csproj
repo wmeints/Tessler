@@ -6,8 +6,8 @@
     <ProjectGuid>{0BB3A14C-1AA7-492F-83E0-6F80228CA356}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tessler.UITest</RootNamespace>
-    <AssemblyName>Tessler.UITest</AssemblyName>
+    <RootNamespace>InfoSupport.Tessler.UITest</RootNamespace>
+    <AssemblyName>InfoSupport.Tessler.UITest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

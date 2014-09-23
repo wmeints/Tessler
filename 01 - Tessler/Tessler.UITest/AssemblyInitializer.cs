@@ -1,8 +1,8 @@
 ﻿using InfoSupport.Tessler.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tessler.UITests.PageObjects;
+using InfoSupport.Tessler.UITests.PageObjects;
 
-namespace Tessler.UITest
+namespace InfoSupport.Tessler.UITest
 {
     [TestClass]
     public static class AssemblyInitializer
