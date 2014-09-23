@@ -9,27 +9,24 @@ param(
 	[switch]$autoExit
 )
 
-. ".\Scripts\Functions.ps1"
+$this = Split-Path $SCRIPT:MyInvocation.MyCommand.Path -parent
+  
+. "$this\Scripts\Functions.ps1"
 
 Write-Host "Creating Tessler NuGet package..."
 
 # Platform tools
 $msbuild = "C:\Windows\Microsoft.Net\Framework\v4.0.30319\MSBuild.exe"
 $vstest = "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
-$nuget = "..\01 - Tessler\.nuget\NuGet.exe"
+$nuget = "$this\..\01 - Tessler\.nuget\NuGet.exe"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $root = (Get-Item $here).Parent.FullName
 
 # Project variables
-$unittestdll = "..\01 - Tessler\Tessler.UnitTest\bin\Release\InfoSupport.Tessler.UnitTest.dll"
-$uitestdll = "..\01 - Tessler\Tessler.UITest\bin\Release\Tessler.UITest.dll"
+$unittestdll = "$this\..\01 - Tessler\Tessler.UnitTest\bin\Release\InfoSupport.Tessler.UnitTest.dll"
+$uitestdll = "$this\..\01 - Tessler\Tessler.UITest\bin\Release\Tessler.UITest.dll"
 $versionfile = "version.txt"
 $releasefolder = "Release"
-
-$binaries = @{
-	#"..\01 - Tessler\Tessler\bin\Release\InfoSupport.Tessler.dll" = "Package\lib\InfoSupport.Tessler.dll"
-	#"..\01 - Tessler\Tessler\bin\Release\WebDriver.dll" = "Package\lib\WebDriver.dll"
-}
 
 CheckFile $msbuild
 CheckFile $vstest
@@ -48,7 +45,7 @@ if (Test-Path $versionfile) {
 
 if ($skipBuild -ne $true) {
 	Green "Building Tessler..."
-	& $msbuild "..\01 - Tessler\Tessler.sln" /p:Configuration=Release
+	& $msbuild "$this\..\01 - Tessler\Tessler.sln" /p:Configuration=Release
 	CheckExitCode "Build"
 	Green "Buid successful"
 } else {

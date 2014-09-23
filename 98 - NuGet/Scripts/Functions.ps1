@@ -3,7 +3,7 @@
 Function CheckExitCode($message) {
 	if ($LASTEXITCODE -ne 0) {
 		Write-Host "$message ended with code $LASTEXITCODE" -f red
-		Quit
+		Exit 1
 	}
 }
 
@@ -17,11 +17,10 @@ Function CheckFile($file) {
 		Green "$filename was found"
 	} else {
 		Write-Host "$file was not found" -f red
-		Quit
+		Exit 1
 	}
 }
 
 Function Quit {
-	Read-Host
 	Exit
 }
