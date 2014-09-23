@@ -4,6 +4,7 @@ param(
 	[switch]$skipUITests,
 	[switch]$skipCopyBinaries,
 	[switch]$skipNuGetPackage,
+	[switch]$skipNuGetPublish,
 	[switch]$verbose,
 	[switch]$autoExit
 )
@@ -98,19 +99,24 @@ if ($skipNuGetPackage -ne $true) {
 	& $nuget Pack "Package\tessler.specflow.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	CheckExitCode "NuGet Pack"
 	
-	$doPublish = Read-Host "Publish to NuGet.org? (y/N)"
-		
-	if ($doPublish -eq "y")
+	if ($skipNuGetPublish -ne $true)
 	{
-		#$apiKey = Get-Content $apikeyfile
-		$nugetUrl = "https://repoj.rhea.infosupport.net/nexus/service/local/nuget/project-IS-Tessler/"
-		
-		& $nuget SetApiKey "b21a1f7a-bde6-341c-a0dc-885f8fb4bc91" -Source $nugetUrl
-		
-		& $nuget Push "$releasefolder\Tessler.$version.nupkg" -s $nugetUrl
-		& $nuget Push "$releasefolder\Tessler.SpecFlow.$version.nupkg" -s $nugetUrl
-
-		CheckExitCode "NuGet Push"
+		$doPublish = Read-Host "Publish to NuGet.org? (y/N)"
+			
+		if ($doPublish -eq "y")
+		{
+			#$apiKey = Get-Content $apikeyfile
+			$nugetUrl = "https://repoj.rhea.infosupport.net/nexus/service/local/nuget/project-IS-Tessler/"
+			
+			& $nuget SetApiKey "b21a1f7a-bde6-341c-a0dc-885f8fb4bc91" -Source $nugetUrl
+			
+			& $nuget Push "$releasefolder\Tessler.$version.nupkg" -s $nugetUrl
+			& $nuget Push "$releasefolder\Tessler.SpecFlow.$version.nupkg" -s $nugetUrl
+	
+			CheckExitCode "NuGet Push"
+		} else {
+			Write-Host "Skipping publishment to NuGet.org"
+		}
 	} else {
 		Write-Host "Skipping publishment to NuGet.org"
 	}
