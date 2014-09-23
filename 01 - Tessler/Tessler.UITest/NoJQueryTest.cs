@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using InfoSupport.Tessler.Core;
 
-namespace Tessler.UITest
+namespace InfoSupport.Tessler.UITest
 {
     [TestClass]
     public class NoJQueryTest : TestBase

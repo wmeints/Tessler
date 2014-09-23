@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tessler.UITests.PageObjects.JQueryTests
+namespace InfoSupport.Tessler.UITests.PageObjects.JQueryTests
 {
     public class NoJQueryPageObject : BasePageObject<NoJQueryPageObject>
     {

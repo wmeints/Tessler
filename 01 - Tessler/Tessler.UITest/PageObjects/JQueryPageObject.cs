@@ -3,9 +3,9 @@
 using System;
 using InfoSupport.Tessler.Core;
 using InfoSupport.Tessler.Selenium;
-using Tessler.UITests.PageObjects.JQueryTests;
+using InfoSupport.Tessler.UITests.PageObjects.JQueryTests;
 
-namespace Tessler.UITests.PageObjects
+namespace InfoSupport.Tessler.UITests.PageObjects
 {
     /// <summary>
     /// Dit page object stelt de tweede pagina voor

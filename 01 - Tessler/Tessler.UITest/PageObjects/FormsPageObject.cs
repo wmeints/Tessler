@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tessler.UITests.PageObjects
+namespace InfoSupport.Tessler.UITests.PageObjects
 {
     public class FormsPageObject : BasePageObject<FormsPageObject>
     {

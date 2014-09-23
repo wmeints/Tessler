@@ -6,7 +6,7 @@ using InfoSupport.Tessler.Selenium;
 using InfoSupport.Tessler.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tessler.UITest
+namespace InfoSupport.Tessler.UITest
 {
     [TestClass]
     public class DefectTest// : TestBase
