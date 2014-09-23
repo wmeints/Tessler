@@ -10,8 +10,8 @@ $root = (Get-Item $here).Parent.FullName
 # Project variables
 Write-Host "Checking required files..." -f yellow
 
-$versionfile = "version.txt"
-$releasefolder = "Release"
+$versionfile = "$here\version.txt"
+$releasefolder = "$here\Release"
 
 CheckFile $nuget
 CheckFile $versionfile
@@ -26,14 +26,12 @@ if (Test-Path $versionfile) {
 	$version = "1.0.0"
 }
 
-. ".\Version.ps1" $version
-
 Green "Updating NuGet..." 
 & $nuget Update -self
 CheckExitCode "NuGet Update"
 
-& $nuget Pack "Package\tessler.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
-& $nuget Pack "Package\tessler.specflow.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
+& $nuget Pack "$here\Package\tessler.nuspec" -OutputDirectory $releasefolder -Version $version -BasePath $root
+& $nuget Pack "$here\Package\tessler.specflow.nuspec" -OutputDirectory $releasefolder -Version $version -BasePath $root
 CheckExitCode "NuGet Pack"
 
 Write-Host "Done" -f green
