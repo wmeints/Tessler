@@ -12,6 +12,7 @@ Function Green($message) {
 }
 
 Function CheckFile($file) {
+	Write-Host "Checking existence of '$file'..." -f yellow
 	$filename = [System.IO.Path]::GetFileName($file)
 	if (Test-Path $file) {
 		Green "$filename was found"
