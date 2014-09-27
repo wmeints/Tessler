@@ -93,8 +93,8 @@ if ($createNuGetPackage -eq $true) {
 	CheckExitCode "NuGet Update"
 	
 	Header "Creating Tessler NuGet package..."
-	& $nuget Pack "$here\Package\tessler.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
-	& $nuget Pack "$here\Package\tessler.specflow.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
+	& $nuget Pack "$here\Package\tessler.nuspec" -OutputDirectory "$here\Release" -Version $version -BasePath $root
+	& $nuget Pack "$here\Package\tessler.specflow.nuspec" -OutputDirectory "$here\Release" -Version $version -BasePath $root
 	CheckExitCode "NuGet Pack"
 } else {
 	Write-Host "Skipping creation of NuGet package" -f yellow
