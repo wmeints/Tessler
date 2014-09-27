@@ -1,30 +1,36 @@
 param(
-	[switch]$skipBuild,
-	[switch]$skipUnitTests,
-	[switch]$skipUITests,
-	[switch]$skipCopyBinaries,
-	[switch]$skipNuGetPackage,
-	[switch]$skipNuGetPublish,
-	[switch]$verbose,
-	[switch]$autoExit
+	[switch]$updateVersion = $false,
+	[switch]$build = $false,
+	[switch]$runUnitTests = $false,
+	[switch]$runUITests = $false,
+	[switch]$createNuGetPackage = $false,
+	[switch]$publishNuGetPackage = $false,
+	[switch]$verbose = $false
 )
 
-$this = Split-Path $SCRIPT:MyInvocation.MyCommand.Path -parent
-  
-. "$this\Scripts\Functions.ps1"
+$here = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$root = (Get-Item $here).Parent.FullName
 
-Write-Host "Creating Tessler NuGet package..."
+. "$here\Functions.ps1"
+
+Yellow "Working directory: $here"
+Yellow "Root directory: $root"
+
+WillWeRun "Update version          " $updateVersion
+WillWeRun "Build                   " $build
+WillWeRun "Run unit tests          " $runUnitTests
+WillWeRun "Run UI tests            " $runUITests
+WillWeRun "Create NuGet package    " $createNuGetPackage
+WillWeRun "Publish NuGet package   " $publishNuGetPackage
 
 # Platform tools
 $msbuild = "C:\Windows\Microsoft.Net\Framework\v4.0.30319\MSBuild.exe"
 $vstest = "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
-$nuget = "$this\..\01 - Tessler\.nuget\NuGet.exe"
-$here = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$root = (Get-Item $here).Parent.FullName
+$nuget = "$here\..\01 - Tessler\.nuget\NuGet.exe"
 
 # Project variables
-$unittestdll = "$this\..\01 - Tessler\Tessler.UnitTest\bin\Release\InfoSupport.Tessler.UnitTest.dll"
-$uitestdll = "$this\..\01 - Tessler\Tessler.UITest\bin\Release\Tessler.UITest.dll"
+$unittestdll = "$here\..\01 - Tessler\Tessler.UnitTest\bin\Release\InfoSupport.Tessler.UnitTest.dll"
+$uitestdll = "$here\..\01 - Tessler\Tessler.UITest\bin\Release\InfoSupport.Tessler.UITest.dll"
 $versionfile = "version.txt"
 $releasefolder = "Release"
 
@@ -32,7 +38,7 @@ CheckFile $msbuild
 CheckFile $vstest
 CheckFile $nuget
 
-# Set version
+# Determine version
 if (Test-Path $versionfile) {
 	$version = Get-Content $versionfile
 	Write-Host "Version file found, using $version" -f yellow
@@ -41,19 +47,28 @@ if (Test-Path $versionfile) {
 	$version = "1.0.0"
 }
 
-. ".\Version.ps1" $version
+# Update version
+if ($updateVersion -eq $true) {
+	Header "Updating version numbers to $version..."
+	Update-AllAssemblyInfoFiles $root $version
+	Green "Version update successful"
+} else {
+	Write-Host "Skipping version update" -f yellow
+}
 
-if ($skipBuild -ne $true) {
-	Green "Building Tessler..."
-	& $msbuild "$this\..\01 - Tessler\Tessler.sln" /p:Configuration=Release
+# Build
+if ($build -eq $true) {
+	Header "Building Tessler..."
+	& $msbuild "$here\..\01 - Tessler\Tessler.sln" /p:Configuration=Release
 	CheckExitCode "Build"
 	Green "Buid successful"
 } else {
 	Write-Host "Skipping build" -f yellow
 }
 
-if ($skipUnitTests -ne $true) {
-	Green "Running unit tests..."
+# Unit tests
+if ($runUnitTests -eq $true) {
+	Header "Running unit tests..."
 	& $vstest $unittestdll
 	CheckExitCode "Unit tests"
 	Green "Unit test run successful"
@@ -61,8 +76,9 @@ if ($skipUnitTests -ne $true) {
 	Write-Host "Skipping unit tests" -f yellow
 }
 
-if ($skipUITests -ne $true) {
-	Green "Running UI tests..."
+# UI tests
+if ($runUITests -eq $true) {
+	Header "Running UI tests..."
 	& $vstest $uitestdll
 	CheckExitCode "UI tests"
 	Green "UI test run successful"
@@ -70,58 +86,38 @@ if ($skipUITests -ne $true) {
 	Write-Host "Skipping UI tests" -f yellow
 }
 
-if ($skipCopyBinaries -ne $true) {
-	Green "Copying package binaries..."
-		$binaries.Keys | % {
-			try {
-				$filename = [System.IO.Path]::GetFileName($_)
-				if ($verbose) { Write-Host "Copying $filename..." -f yellow }
-				Copy-Item $_ $binaries.Item($_) -ErrorAction Stop
-			}
-			catch {
-				Write-Host "Error copying binaries: $_" -f red
-				Quit
-			}
-		}
-} else {
-	Write-Host "Skipping copying of binaries" -f yellow
-}
-
-if ($skipNuGetPackage -ne $true) {
-	Green "Updating NuGet..." 
+# Create NuGet package
+if ($createNuGetPackage -eq $true) {
+	Header "Updating NuGet..." 
 	& $nuget Update -self
 	CheckExitCode "NuGet Update"
 	
+	Header "Creating Tessler NuGet package..."
 	& $nuget Pack "Package\tessler.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	& $nuget Pack "Package\tessler.specflow.nuspec" -OutputDirectory "Release" -Version $version -BasePath $root
 	CheckExitCode "NuGet Pack"
-	
-	if ($skipNuGetPublish -ne $true)
-	{
-		$doPublish = Read-Host "Publish to NuGet.org? (y/N)"
-			
-		if ($doPublish -eq "y")
-		{
-			#$apiKey = Get-Content $apikeyfile
-			$nugetUrl = "https://repoj.rhea.infosupport.net/nexus/service/local/nuget/project-IS-Tessler/"
-			
-			& $nuget SetApiKey "b21a1f7a-bde6-341c-a0dc-885f8fb4bc91" -Source $nugetUrl
-			
-			& $nuget Push "$releasefolder\Tessler.$version.nupkg" -s $nugetUrl
-			& $nuget Push "$releasefolder\Tessler.SpecFlow.$version.nupkg" -s $nugetUrl
-	
-			CheckExitCode "NuGet Push"
-		} else {
-			Write-Host "Skipping publishment to NuGet.org"
-		}
-	} else {
-		Write-Host "Skipping publishment to NuGet.org"
-	}
 } else {
 	Write-Host "Skipping creation of NuGet package" -f yellow
 }
 
-Write-Host "Done" -f green
-if ($autoExit -ne $true) {
-	Quit
+# Publish NuGet package
+if ($publishNuGetPackage -eq $true) {
+	Header "Publishing NuGet package..."
+	if ((File-Exists $apikeyfile) -ne $true) {
+		Write-Host "Could not publish to NuGet, no api key available" -f red
+		Exit 1
+	}
+	
+	$apiKey = Get-Content $apikeyfile
+	
+	& $nuget SetApiKey $apiKey -Source $nugetUrl
+	
+	& $nuget Push "$releasefolder\Tessler.$version.nupkg"
+	& $nuget Push "$releasefolder\Tessler.SpecFlow.$version.nupkg"
+
+	CheckExitCode "NuGet Publish"
+} else {
+	Write-Host "Skipping publish to NuGet.org"
 }
+
+Green "Done"
