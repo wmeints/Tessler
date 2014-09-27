@@ -1,2 +1,0 @@
-This file only exists to enable checking in of the otherwise empty folder
-Remove once the folder gets content
