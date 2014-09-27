@@ -34,10 +34,6 @@ $uitestdll = "$here\..\01 - Tessler\Tessler.UITest\bin\Release\InfoSupport.Tessl
 $versionfile = "version.txt"
 $releasefolder = "Release"
 
-CheckFile $msbuild
-CheckFile $vstest
-CheckFile $nuget
-
 # Determine version
 if (Test-Path $versionfile) {
 	$version = Get-Content $versionfile
@@ -59,6 +55,7 @@ if ($updateVersion -eq $true) {
 # Build
 if ($build -eq $true) {
 	Header "Building Tessler..."
+	CheckFile $msbuild
 	& $msbuild "$here\..\01 - Tessler\Tessler.sln" /p:Configuration=Release
 	CheckExitCode "Build"
 	Green "Buid successful"
@@ -69,6 +66,7 @@ if ($build -eq $true) {
 # Unit tests
 if ($runUnitTests -eq $true) {
 	Header "Running unit tests..."
+	CheckFile $vstest
 	& $vstest $unittestdll
 	CheckExitCode "Unit tests"
 	Green "Unit test run successful"
@@ -79,6 +77,7 @@ if ($runUnitTests -eq $true) {
 # UI tests
 if ($runUITests -eq $true) {
 	Header "Running UI tests..."
+	CheckFile $vstest
 	& $vstest $uitestdll
 	CheckExitCode "UI tests"
 	Green "UI test run successful"
@@ -88,7 +87,8 @@ if ($runUITests -eq $true) {
 
 # Create NuGet package
 if ($createNuGetPackage -eq $true) {
-	Header "Updating NuGet..." 
+	Header "Updating NuGet..."
+	CheckFile $nuget
 	& $nuget Update -self
 	CheckExitCode "NuGet Update"
 	
@@ -103,6 +103,7 @@ if ($createNuGetPackage -eq $true) {
 # Publish NuGet package
 if ($publishNuGetPackage -eq $true) {
 	Header "Publishing NuGet package..."
+	CheckFile $nuget
 	if ((File-Exists $apikeyfile) -ne $true) {
 		Write-Host "Could not publish to NuGet, no api key available" -f red
 		Exit 1
