@@ -1,5 +1,4 @@
 powershell ./CreateNuGetPackage.ps1 ^
-	-updateVersion ^
 	-build ^
 	-runUnitTest ^
 	-runUITest ^

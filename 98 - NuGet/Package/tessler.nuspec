@@ -13,14 +13,6 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>UI Test</tags>
-    <!--<dependencies>
-	  <dependency id="log4net" version="2.0.3" />
-	  <dependency id="Moq" version="4.2.1402.2112" />
-      <dependency id="Selenium.WebDriver" version="2.41.0" />
-	  <dependency id="Selenium.Support" version="2.41.0" />
-	  <dependency id="Unity" version="2.1.505.2" />
-	  <dependency id="Unity.Interception" version="2.1.505.2" />
-    </dependencies>-->
   </metadata>
   <files>
     <file src="01 - Tessler\Tessler\bin\Release\Merged.Tessler\InfoSupport.Tessler.dll" target="lib\net40\InfoSupport.Tessler.dll" />
