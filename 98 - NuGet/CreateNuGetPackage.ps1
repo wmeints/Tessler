@@ -1,11 +1,12 @@
 param(
-	[switch]$updateVersion = $false,
 	[switch]$build = $false,
 	[switch]$runUnitTests = $false,
 	[switch]$runUITests = $false,
 	[switch]$createNuGetPackage = $false,
 	[switch]$publishNuGetPackage = $false,
-	[switch]$verbose = $false
+	[switch]$verbose = $false,
+	[string]$version = $null,
+	[string]$apikey = $null
 )
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Definition
@@ -16,7 +17,6 @@ $root = (Get-Item $here).Parent.FullName
 Yellow "Working directory: $here"
 Yellow "Root directory: $root"
 
-WillWeRun "Update version          " $updateVersion
 WillWeRun "Build                   " $build
 WillWeRun "Run unit tests          " $runUnitTests
 WillWeRun "Run UI tests            " $runUITests
@@ -31,25 +31,17 @@ $nuget = "$here\..\01 - Tessler\.nuget\NuGet.exe"
 # Project variables
 $unittestdll = "$here\..\01 - Tessler\Tessler.UnitTest\bin\Release\InfoSupport.Tessler.UnitTest.dll"
 $uitestdll = "$here\..\01 - Tessler\Tessler.UITest\bin\Release\InfoSupport.Tessler.UITest.dll"
-$versionfile = "version.txt"
 $releasefolder = "Release"
 
-# Determine version
-if (Test-Path $versionfile) {
-	$version = Get-Content $versionfile
-	Write-Host "Version file found, using $version" -f yellow
-} else {
-	Write-Host "No version file found, using 1.0.0" -f yellow
-	$version = "1.0.0"
-}
-
 # Update version
-if ($updateVersion -eq $true) {
+if ($version -ne $null) {
 	Header "Updating version numbers to $version..."
 	Update-AllAssemblyInfoFiles $root $version
 	Green "Version update successful"
 } else {
-	Write-Host "Skipping version update" -f yellow
+	Write-Host "No version specified, skip creating and publishing NuGet package" -f yellow
+	$createNuGetPackage = $false
+	$publishNuGetPackage = $false
 }
 
 # Build
@@ -104,14 +96,12 @@ if ($createNuGetPackage -eq $true) {
 if ($publishNuGetPackage -eq $true) {
 	Header "Publishing NuGet package..."
 	CheckFile $nuget
-	if ((File-Exists $apikeyfile) -ne $true) {
+	if ($apikey -eq $null) {
 		Write-Host "Could not publish to NuGet, no api key available" -f red
 		Exit 1
 	}
 	
-	$apiKey = Get-Content $apikeyfile
-	
-	& $nuget SetApiKey $apiKey -Source $nugetUrl
+	& $nuget SetApiKey $apikey
 	
 	& $nuget Push "$releasefolder\Tessler.$version.nupkg"
 	& $nuget Push "$releasefolder\Tessler.SpecFlow.$version.nupkg"

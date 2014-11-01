@@ -21,7 +21,7 @@ namespace InfoSupport.Tessler.Drivers
             {
                 case Browser.Chrome:
                 {
-                    string chromeDriverFolder = UnpackDriver("chromedriver.exe", Resources.ChromeDriver);
+                    string chromeDriverFolder = UnpackDriver("chromedriver.exe", Resources.chromedriver);
 
                     var options = new ChromeOptions();
                     options.AddArgument("test-type");
@@ -44,9 +44,10 @@ namespace InfoSupport.Tessler.Drivers
                 }
                 case Browser.InternetExplorer:
                 {
-                    string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
-
-                    return new InternetExplorerDriver(ieDriverFolder);
+                    //string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
+                    
+                    //return new InternetExplorerDriver(ieDriverFolder);
+                    return new InternetExplorerDriver();
                 }
                 case Browser.PhantomJS:
                 {

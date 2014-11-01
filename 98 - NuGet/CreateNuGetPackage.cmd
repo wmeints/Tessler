@@ -2,5 +2,5 @@ powershell ./CreateNuGetPackage.ps1 ^
 	-build ^
 	-runUnitTest ^
 	-runUITest ^
-	-createNuGetPackage ^
+	-createNuGetPackage
 	| wtee CreateNuGetPackage.log
