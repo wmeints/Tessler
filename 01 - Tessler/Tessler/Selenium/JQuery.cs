@@ -156,7 +156,7 @@ namespace InfoSupport.Tessler.Selenium
 
     public static class JQueryExtensions
     {
-        public static JQueryElement Element(this JQuery selector)
+        public static IJQueryElement Element(this JQuery selector)
         {
             var result = selector.Elements();
             
@@ -175,7 +175,7 @@ namespace InfoSupport.Tessler.Selenium
             return result.Single();
         }
 
-        public static IEnumerable<JQueryElement> Elements(this JQuery selector)
+        public static IEnumerable<IJQueryElement> Elements(this JQuery selector)
         {
             return TesslerState.GetWebDriver().WaitFor(selector);
         }

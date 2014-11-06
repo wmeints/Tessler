@@ -44,10 +44,9 @@ namespace InfoSupport.Tessler.Drivers
                 }
                 case Browser.InternetExplorer:
                 {
-                    //string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
+                    string ieDriverFolder = UnpackDriver("IEDriverServer.exe", Resources.IEDriverServer);
                     
-                    //return new InternetExplorerDriver(ieDriverFolder);
-                    return new InternetExplorerDriver();
+                    return new InternetExplorerDriver(ieDriverFolder);
                 }
                 case Browser.PhantomJS:
                 {
@@ -83,7 +82,7 @@ namespace InfoSupport.Tessler.Drivers
             }
             catch (Exception e)
             {
-                //throw new FileLoadException(string.Format("Could not deploy the driver '{0}', maybe the driver is still running?", binaryName), e);
+                // Throw new FileLoadException(string.Format("Could not deploy the driver '{0}', maybe the driver is still running?", binaryName), e);
                 Log.WarnFormat("Could not deploy the driver '{0}', maybe the driver is still running? Using the existing driver.", binaryName);
             }
 

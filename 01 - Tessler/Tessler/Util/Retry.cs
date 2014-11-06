@@ -6,6 +6,7 @@ namespace InfoSupport.Tessler.Util
 {
     public class Retry
     {
+        public string name;
         private Func<bool> action;
 
         private Action onSuccess;
@@ -14,12 +15,21 @@ namespace InfoSupport.Tessler.Util
         private TimeSpan interval = TimeSpan.Zero;
         private TimeSpan timeout = TimeSpan.Zero;
 
+        private bool anyException;
         private List<Type> exceptions;
 
-        private Retry(Func<bool> action)
+        private Retry(string name, Func<bool> action)
         {
+            this.name = name;
             this.action = action;
             this.exceptions = new List<Type>();
+        }
+
+        public Retry AcceptAnyException()
+        {
+            anyException = true;
+
+            return this;
         }
 
         public Retry AddException<TException>()
@@ -60,33 +70,45 @@ namespace InfoSupport.Tessler.Util
 
         public void Start()
         {
-            TimeSpan timeSpan = new TimeSpan();
+            var start = DateTime.Now;
+            var end = start.Add(timeout);
+            int count = 0;
 
             do
             {
+                count++;
+
                 try
                 {
+                    Log.Info(string.Format("Executing task '{0}', attempt {1}...", name, count));
                     if (action())
                     {
                         if (onSuccess != null) onSuccess();
                         return;
                     }
+                    else
+                    {
+                        Log.Warn(string.Format("Task '{0}' attempt {1} failed...", name, count));
+                    }
                 }
                 catch (Exception e)
                 {
-                    if (!exceptions.Contains(e.GetType()))
+                    if (!anyException && !exceptions.Contains(e.GetType()))
                     {
                         if (onFail != null) onFail();
                         throw;
                     }
+                    else
+                    {
+                        Log.Warn(string.Format("Task '{0}' attempt {1} failed after exception thrown: {2}", name, count, e.Message));
+                    }
                 }
-
                 Thread.Sleep(interval);
-                timeSpan = timeSpan.Add(interval);
-            } while (timeSpan < timeout);
+            } while (DateTime.Now < end);
 
             try
             {
+                Log.Warn(string.Format("Executing task '{0}' one last time after {1} attempts...", name, count));
                 if (action())
                 {
                     if (onSuccess != null) onSuccess();
@@ -95,7 +117,8 @@ namespace InfoSupport.Tessler.Util
             }
             catch
             {
-                onFail();
+                Log.Error(string.Format("Task '{0}' failed", name));
+                if(onFail != null) onFail();
 
                 throw;
             }
@@ -103,9 +126,9 @@ namespace InfoSupport.Tessler.Util
             if (onFail != null) onFail();
         }
 
-        public static Retry Create(Func<bool> action)
+        public static Retry Create(string name, Func<bool> action)
         {
-            return new Retry(action);
+            return new Retry(name, action);
         }
     }
 }

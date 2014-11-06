@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using InfoSupport.Tessler.Adapters.Ajax;
+﻿using InfoSupport.Tessler.Adapters.Ajax;
 using InfoSupport.Tessler.Configuration;
+using InfoSupport.Tessler.Exceptions;
 using InfoSupport.Tessler.Selenium;
 using InfoSupport.Tessler.Unity;
 using InfoSupport.Tessler.Util;
@@ -14,7 +9,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using InfoSupport.Tessler.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace InfoSupport.Tessler.Drivers
 {
@@ -162,7 +162,7 @@ namespace InfoSupport.Tessler.Drivers
                 Js(js.ToString());
 
                 // Check that we can now run jQuery functions
-                Retry.Create(() =>
+                Retry.Create("Load jQuery", () =>
                 {
                     return IsJQueryLoaded;
                 })
@@ -206,7 +206,7 @@ namespace InfoSupport.Tessler.Drivers
                 TimeSpan max = TimeSpan.FromSeconds(ConfigurationState.AjaxWaitTime);
                 TimeSpan interval = TimeSpan.FromSeconds(ConfigurationState.AjaxWaitInterval);
 
-                Retry.Create(() => !jsAdapter.IsActive(this))
+                Retry.Create("Wait for Ajax", () => !jsAdapter.IsActive(this))
                     .SetInterval(interval)
                     .SetTimeout(max)
                     .Start();
@@ -217,24 +217,33 @@ namespace InfoSupport.Tessler.Drivers
             }
         }
 
-        public IEnumerable<JQueryElement> FindElements(JQuery by)
+        public IEnumerable<IJQueryElement> FindElements(JQuery by)
         {
             if (InhibitExecution)
             {
                 storedElements.Add(by);
 
-                return new List<JQueryElement>() { new JQueryElement(this, new Mock<IWebElement>().Object, by) };
+                return new List<IJQueryElement>() { new Mock<IJQueryElement>().Object };
             }
 
             IEnumerable<IWebElement> elements = null;
 
             // The driver will throw an exception if it cannot find any element, in which case we want to return null
-            try
+            Retry.Create("Find element jQuery" + by.Selector, () =>
             {
-                elements = Js("return jQuery" + by.Selector + ".get()") as IEnumerable<IWebElement>;
-            }
-            catch (Exception)
-            { }
+                try
+                {
+                    elements = Js("return jQuery" + by.Selector + ".get()") as IEnumerable<IWebElement>;
+                }
+                catch { }
+
+                return elements != null;
+            })
+            .AcceptAnyException()
+            .SetInterval(TimeSpan.FromSeconds(TesslerConfiguration.NotVisibleWaitTime()))
+            .SetTimeout(TimeSpan.FromSeconds(TesslerConfiguration.FindElementTimeout()))
+            .Start()
+            ;
 
             // If elements were found, wrap them in a JQueryElement collection
             return elements != null ? elements.Select(e => new JQueryElement(this, e, by)) : new List<JQueryElement>();
@@ -246,10 +255,20 @@ namespace InfoSupport.Tessler.Drivers
             {
                 by = by.Filter(":visible");
 
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(ConfigurationState.NotVisibleWaitTime));
-                var result = wait.Until(d => FindElements(by));
+                IEnumerable<IWebElement> elements = null;
 
-                return result.Count() > 0;
+                Retry.Create("IsVisible", () =>
+                {
+                    elements = Js("return jQuery" + by.Selector + ".get()") as IEnumerable<IWebElement>;
+
+                    return true;
+                })
+                .AcceptAnyException()
+                .SetInterval(TimeSpan.FromSeconds(TesslerConfiguration.AjaxWaitInterval()))
+                .SetTimeout(TimeSpan.FromSeconds(TesslerConfiguration.NotVisibleWaitTime()))
+                .Start();
+
+                return elements.Count() > 0;
             }
             catch
             {
@@ -257,7 +276,7 @@ namespace InfoSupport.Tessler.Drivers
             }
         }
 
-        public IEnumerable<JQueryElement> WaitFor(JQuery by)
+        public IEnumerable<IJQueryElement> WaitFor(JQuery by)
         {
             try
             {

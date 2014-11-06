@@ -147,6 +147,9 @@ namespace InfoSupport.Tessler.Core
 
             log4net.Config.XmlConfigurator.Configure();
 
+            Log.Info("----------------------------------------------------------");
+            Log.Info("-- Started new test session --");
+            Log.Info("----------------------------------------------------------");
             Log.Info("- Configuration -");
             Log.InfoFormat("Website url: '{0}'", ConfigurationState.WebsiteUrl);
             Log.InfoFormat("Find element timeout: '{0}'", ConfigurationState.FindElementTimeout);

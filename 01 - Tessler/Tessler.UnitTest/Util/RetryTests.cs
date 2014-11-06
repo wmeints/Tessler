@@ -2,18 +2,32 @@
 using System.Diagnostics;
 using InfoSupport.Tessler.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using log4net;
+using InfoSupport.Tessler.Unity;
+using Microsoft.Practices.Unity;
 
 namespace InfoSupport.Tessler.UnitTest.Util
 {
     [TestClass]
     public class RetryTests
     {
+        private Mock<ILog> logMock;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            logMock = new Mock<ILog>();
+
+            UnityInstance.Instance.RegisterInstance<ILog>(logMock.Object);
+        }
+
         [TestMethod]
         public void RetryTest()
         {
             bool isCalled = false;
 
-            Retry.Create(() =>
+            Retry.Create("RetryTest", () =>
             {
                 isCalled = true;
                 return true;
@@ -30,7 +44,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
         {
             bool isCalled = false;
 
-            Retry.Create(() => true)
+            Retry.Create("RetryOnSuccessTest", () => true)
             .OnSuccess(() => isCalled = true)
             .SetInterval(TimeSpan.FromSeconds(0.1))
             .SetTimeout(TimeSpan.FromSeconds(1))
@@ -44,7 +58,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
         {
             bool isCalled = false;
 
-            Retry.Create(() => false)
+            Retry.Create("RetryOnFailTest", () => false)
             .OnFail(() => isCalled = true)
             .SetInterval(TimeSpan.FromSeconds(0.1))
             .SetTimeout(TimeSpan.FromSeconds(0.2))
@@ -59,7 +73,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
             int times = 0;
             bool isCalled = false;
 
-            Retry.Create(() => ++times == 10)
+            Retry.Create("RetryTimesTest", () => ++times == 10)
             .OnSuccess(() => isCalled = true)
             .SetInterval(TimeSpan.FromSeconds(0.01))
             .SetTimeout(TimeSpan.FromSeconds(0.1))
@@ -75,7 +89,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
             int times = 0;
             bool isCalled = false;
 
-            Retry.Create(() =>
+            Retry.Create("RetryAllowedExceptionTest", () =>
             {
                 if(++times == 10) return true;
 
@@ -95,11 +109,33 @@ namespace InfoSupport.Tessler.UnitTest.Util
         [ExpectedException(typeof(InvalidOperationException))]
         public void RetryDisallowedExceptionTest()
         {
-            Retry.Create(() =>
+            Retry.Create("RetryDisallowedExceptionTest", () =>
             {
                 throw new InvalidOperationException();
             })
             .Start();
+        }
+
+        [TestMethod]
+        public void RetryAllowAnyExceptionTest()
+        {
+            int times = 0;
+
+            bool isCalled = false;
+            Retry.Create("RetryAllowAnyExceptionTest", () =>
+            {
+                if (++times == 10) return true;
+
+                throw new InvalidOperationException();
+            })
+            .AcceptAnyException()
+            .OnSuccess(() => isCalled = true)
+            .SetInterval(TimeSpan.FromSeconds(0.01))
+            .SetTimeout(TimeSpan.FromSeconds(0.1))
+            .Start();
+
+            Assert.AreEqual(times, 10);
+            Assert.IsTrue(isCalled);
         }
 
         [TestMethod]
@@ -108,7 +144,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
             int times = 0;
             bool isCalled = false;
 
-            Retry.Create(() =>
+            Retry.Create("RetryTimeoutTest", () =>
             {
                 times++;
 
@@ -132,7 +168,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
 
             try
             {
-                Retry.Create(() =>
+                Retry.Create("RetryTimeoutExceptionTest", () =>
                 {
                     times++;
 
@@ -162,7 +198,7 @@ namespace InfoSupport.Tessler.UnitTest.Util
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            Retry.Create(() =>
+            Retry.Create("RetryTimingsTest", () =>
             {
                 times++;
 

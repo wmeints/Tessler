@@ -9,6 +9,8 @@ using InfoSupport.Tessler.Drivers;
 using InfoSupport.Tessler.Screenshots;
 using InfoSupport.Tessler.Selenium;
 using Microsoft.Practices.Unity.InterceptionExtension;
+using InfoSupport.Tessler.Util;
+using System;
 
 namespace InfoSupport.Tessler.Unity
 {
@@ -34,12 +36,23 @@ namespace InfoSupport.Tessler.Unity
 
             TesslerObject po = input.Target as TesslerObject;
 
+            Log.Info("Step: " + input.MethodBase.Name);
             if (!TesslerWebDriver.InhibitExecution)
             {
                 po.FireOnCalling();
             }
 
-            var result = getNext()(input, getNext);
+            IMethodReturn result = null;
+            Retry.Create("PageObject step " + input.MethodBase.Name, () =>
+            {
+                result = getNext()(input, getNext);
+
+                return result.Exception == null;
+            })
+            .AcceptAnyException()
+            .SetInterval(TimeSpan.FromSeconds((double)TesslerConfiguration.AjaxWaitInterval())) //TODO: Need a seperate setting for this
+            .SetTimeout(TimeSpan.FromSeconds((double)TesslerConfiguration.FindElementTimeout()))
+            .Start();
 
             if (!TesslerWebDriver.InhibitExecution)
             {

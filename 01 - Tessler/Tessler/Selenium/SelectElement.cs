@@ -10,10 +10,10 @@ namespace InfoSupport.Tessler.Selenium
     {
         private ITesslerWebDriver _driver;
 
-        private JQueryElement _element;
+        private IJQueryElement _element;
         private JQuery _selector;
 
-        internal SelectElement(ITesslerWebDriver driver, JQueryElement element, JQuery selector)
+        internal SelectElement(ITesslerWebDriver driver, IJQueryElement element, JQuery selector)
         {
             _driver = driver;
             _element = element;
@@ -46,12 +46,12 @@ namespace InfoSupport.Tessler.Selenium
             get { return _element.Location; }
         }
 
-        public JQueryElement SelectedOption
+        public IJQueryElement SelectedOption
         {
             get { return _selector.Children("option:selected").Element(); }
         }
 
-        public IEnumerable<JQueryElement> Options
+        public IEnumerable<IJQueryElement> Options
         {
             get { return _selector.Children("option").Elements(); }
         }

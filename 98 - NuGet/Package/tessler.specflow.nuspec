@@ -21,6 +21,5 @@
   <files>
     <file src="01 - Tessler\Tessler.SpecFlow\bin\Release\Merged.Tessler.SpecFlow\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll" target="lib\net40\TesslerGeneratorProvider.Generator.SpecFlowPlugin.dll" />
     <file src="98 - NuGet\Package\content\specflow.app.config.transform" target="content\app.config.transform" />
-    <file src="98 - NuGet\Package\content\TesslerHooks.cs.pp" target="content" />
 </files>
 </package>

@@ -97,7 +97,7 @@ namespace InfoSupport.Tessler.Drivers
         /// </summary>
         /// <param name="by">The jQuery selector to use</param>
         /// <returns>The resulting elements</returns>
-        IEnumerable<JQueryElement> FindElements(JQuery by);
+        IEnumerable<IJQueryElement> FindElements(JQuery by);
 
         /// <summary>
         /// Checks that the specified element is not visible
@@ -111,7 +111,7 @@ namespace InfoSupport.Tessler.Drivers
         /// </summary>
         /// <param name="by">The jQuery selector to use</param>
         /// <returns>List of JQueryElements</returns>
-        IEnumerable<JQueryElement> WaitFor(JQuery by);
+        IEnumerable<IJQueryElement> WaitFor(JQuery by);
 
         #endregion
     }

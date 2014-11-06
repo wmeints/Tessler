@@ -350,7 +350,7 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             Assert.AreEqual(0, actual.Count());
 
-            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(a => a.Contains("return jQuery"))), Times.Once());
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(a => a.Contains("return jQuery"))), Times.AtLeastOnce());
         }
 
         [TestMethod]
@@ -362,7 +362,8 @@ namespace InfoSupport.Tessler.UnitTest.Drivers
 
             Assert.AreEqual(0, actual.Count());
 
-            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(a => a.Contains("return jQuery"))), Times.Once());
+            // This call won't return any elements, but it will try to query one or more times, depending on the timings set in configuration
+            webDriverMock.Verify(m => m.ExecuteScript(It.Is<string>(a => a.Contains("return jQuery"))), Times.AtLeastOnce());
         }
 
         [TestMethod]
