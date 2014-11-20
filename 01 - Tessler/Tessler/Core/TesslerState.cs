@@ -87,7 +87,7 @@ namespace InfoSupport.Tessler.Core
             var assembly = Assembly.GetCallingAssembly();
 
             // Get class type
-            testClass = assembly.GetType(context.FullyQualifiedTestClassName);
+            testClass = FindTestClass(context.FullyQualifiedTestClassName);
 
             // Get method info
             testMethod = testClass.GetMethod(context.TestName);
@@ -104,6 +104,21 @@ namespace InfoSupport.Tessler.Core
             Configure().RestoreState();
 
             GetScreenshotManager().Initialize();
+        }
+
+        private static Type FindTestClass(string fullyQualifiedTestClassName)
+        {
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var type = assembly.GetType(fullyQualifiedTestClassName);
+
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+
+            return null;
         }
 
         public static void TestCleanup()
