@@ -130,6 +130,14 @@ namespace InfoSupport.Tessler.Drivers
 
                     if (result.ToString() == "function") return true;
                 }
+                catch (UnhandledAlertException)
+                {
+                    // Automatically accept any pending alert to prevent this problem from happening.
+                    driver.SwitchTo().Alert().Accept();
+
+                    var result = Js("return typeof(jQuery)");
+                    if (result.ToString() == "function") return true;
+                }
                 catch (Exception e)
                 {
                     var message = string.Format("Error checking jQuery presence: {0}", e.Message);

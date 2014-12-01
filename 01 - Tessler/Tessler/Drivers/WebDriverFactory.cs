@@ -24,7 +24,13 @@ namespace InfoSupport.Tessler.Drivers
                     string chromeDriverFolder = UnpackDriver("chromedriver.exe", Resources.chromedriver);
 
                     var options = new ChromeOptions();
+                    
                     options.AddArgument("test-type");
+
+                    // Add the disable-extensions options to prevent the "Disable developer mode" popup from rendering.
+                    // This popup causes Tessler to not be able to detect the presence of jQuery in the browser.
+                    options.AddArgument("--disable-extensions");
+                    
                     return new ChromeDriver(chromeDriverFolder, options);
                 }
                 case Browser.Firefox:
