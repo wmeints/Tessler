@@ -4,7 +4,7 @@
 	</configSections>
 	<specFlow>
     <plugins>
-      <add name="TesslerGeneratorProvider" path="C:\Users\marcoo\Source\Repos\Tessler\01 - Tessler\Tessler.SpecFlow\bin\Release" type="Generator"/>
+      <add name="TesslerGeneratorProvider" path="[insert path to output folder here]" type="Generator"/>
     </plugins>
   </specFlow>
 </configuration>
