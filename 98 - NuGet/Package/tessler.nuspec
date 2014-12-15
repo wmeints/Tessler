@@ -18,5 +18,6 @@
     <file src="01 - Tessler\Tessler\bin\Release\Merged.Tessler\InfoSupport.Tessler.dll" target="lib\net40\InfoSupport.Tessler.dll" />
     <file src="98 - NuGet\Package\content\app.config.transform" target="content" />
 	<file src="98 - NuGet\Package\content\AssemblyInitializer.cs.pp" target="content" />
+	<file src="98 - NuGet\Package\content\ExampleTest.cs.pp" target="content" />
 </files>
 </package>

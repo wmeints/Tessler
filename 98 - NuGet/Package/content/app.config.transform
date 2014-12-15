@@ -3,16 +3,16 @@
 		<section name="tessler" type="InfoSupport.Tessler.Configuration.TesslerSection, InfoSupport.Tessler"/>
 	</configSections>
 	<tessler>
-		<!-- See Tessler documentation for possible configurations -->
+		<!-- See Tessler documentation for possible configurations: https://github.com/infosupport/Tessler/wiki -->
 		<!-- The browser to use -->
-		<browser value="Chrome"/>
+		<browser value="Chrome" />
 		<!-- Keep browser at default size in development mode -->
-		<maximizeBrowser value="false"/>
+		<maximizeBrowser value="false" />
 		<!-- Re-use browser window across tests -->
-		<recycleBrowser value="true"/>
+		<recycleBrowser value="true" />
 		<!-- Only keep screenshots when the test fails -->
-		<takeScreenshot value="OnFail"/>
+		<takeScreenshot value="OnFail" />
 		<!-- The url of the website -->
-		<websiteUrl value="http://www.google.nl/"/>
+		<websiteUrl value="https://github.com/infosupport" />
 	</tessler>
 </configuration>
