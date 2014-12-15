@@ -121,13 +121,13 @@
   <data name="chromedriver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\packages\webdriver.chromedriver.win32.2.12.0.0\content\chromedriver.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="IEDriverServer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\packages\webdriver.iedriverserver.win32.2.42.0\content\iedriverserver.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="phantomjs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\packages\phantomjs.1.9.8\tools\phantomjs\phantomjs.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="RestoreFromSnapshotQuery" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\RestoreFromSnapshotQuery.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="IEDriverServer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\packages\webdriver.iedriverserver.win32.2.44\content\iedriverserver.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
